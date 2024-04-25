@@ -15,6 +15,7 @@ repos:
       - id: trailing-whitespace
         exclude: ^tests/.*data/.*$
       - id: check-json
+      - id: no-commit-to-branch
       - id: name-tests-test
         args: [ --pytest-test-first ]
   - repo: https://github.com/myint/docformatter
@@ -27,3 +28,20 @@ repos:
     hooks:
       - id: ruff
       - id: ruff-format
+  -   repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+    -   id: black
+        args: [--config=pyproject.toml]
+  -   repo: https://github.com/pycqa/isort
+    rev: 5.5.4
+    hooks:
+    -   id: isort
+        files: "\\.(py)$"
+        args: [--settings-path=pyproject.toml]
+-   repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+    -   id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package.lock.json
