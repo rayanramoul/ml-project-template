@@ -1,0 +1,14 @@
+**/conda
+**/conda_environments
+**/*.png
+**/.neptune
+**/logs
+**/tmp
+**/tmp*
+**/*.csv
+**/*.ckpt
+*lightning_logs*
+*hydra*
+**/*.log
+**/old
+.ruff_cache
