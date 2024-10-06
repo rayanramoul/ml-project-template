@@ -23,14 +23,14 @@ A template for machine learning or deep learning projects.
 
 <br>
 
-## Features
+## 🧠 Features
 
 - [x] Easy to implement your own model and dataloader
 - [x] Configurable hyperparameters with Hydra
 - [x] Logging with the solution that fits your needs
 - [x] Works on CPU, multi-GPU, and multi-TPUs
 
-## Installation
+## ⚙️ Installation
 
 - [ ] Use this repository as a template
 - [ ] Clone your repository
@@ -39,7 +39,7 @@ A template for machine learning or deep learning projects.
 - [ ] Add your dataset which inherits from `Datamodule` in `src/data`
 - [ ] Add associated yaml configuration files in `configs/` folder following existing examples
 
-## Tree Explained
+## 🌳 Tree Explained
 
 ```
 .
@@ -132,7 +132,7 @@ A template for machine learning or deep learning projects.
 
 ````
 
-## Aknowledgements
+## 🌟 Aknowledgements
 
 This template was heavily inspired by great existing ones, like:
 
