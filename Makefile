@@ -11,3 +11,5 @@ init:
 configure_commit_template:
 	git config --global commit.template $(realpath commit-template.txt)
 
+format:
+	uvx pre-commit run --all-files
