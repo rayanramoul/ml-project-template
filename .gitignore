@@ -11,6 +11,7 @@
 *hydra*
 **/*.log
 **/old
+**pycache**
 .ruff_cache
 notebooks/*.ipynb
 notebooks/*.ipynb_checkpoints

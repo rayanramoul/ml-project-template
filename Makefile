@@ -16,3 +16,6 @@ configure_commit_template:
 
 format:
 	uvx pre-commit run --all-files
+
+train:
+	uv run src/train.py

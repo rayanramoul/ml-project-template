@@ -9,11 +9,7 @@
 [![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
 [![isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/) <br>
 [![tests](https://github.com/ashleve/lightning-hydra-template/actions/workflows/test.yml/badge.svg)](https://github.com/ashleve/lightning-hydra-template/actions/workflows/test.yml)
-[![code-quality](https://github.com/ashleve/lightning-hydra-template/actions/workflows/code-quality-main.yaml/badge.svg)](https://github.com/ashleve/lightning-hydra-template/actions/workflows/code-quality-main.yaml)
-[![codecov](https://codecov.io/gh/ashleve/lightning-hydra-template/branch/main/graph/badge.svg)](https://codecov.io/gh/ashleve/lightning-hydra-template) <br>
-[![license](https://img.shields.io/badge/License-MIT-green.svg?labelColor=gray)](https://github.com/ashleve/lightning-hydra-template#license)
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ashleve/lightning-hydra-template/pulls)
-[![contributors](https://img.shields.io/github/contributors/ashleve/lightning-hydra-template.svg)](https://github.com/ashleve/lightning-hydra-template/graphs/contributors)
 
 Click on [<kbd>Use this template</kbd>](https://github.com/rayanramoul/ml-project-template/generate) to start your own project!
 
@@ -132,6 +128,22 @@ A template for machine learning or deep learning projects.
 
 ````
 
+## 🔮 Incoming features for this template
+
+- [ ] Add torch.compile of models
+- [ ] Integrate TorchTyping
+- [ ] Dockerize the project (Dockerfile, run tests and training through docker, optionally docker-compose)
+- [ ] Add example of efficient multi-processing using pool map
+- [ ] Add example using polars
+- [ ] Implement Einops
+- [ ] Example mock tests
+- [ ] Util scripts to download dataset from kaggle for example
+- [ ] Cloud oriented scripts (launch your training on AWS, GCP, Azure)
+
+## 🤝 Contributing
+
+For more information on how to contribute to this project, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 ## 🌟 Aknowledgements
 
 This template was heavily inspired by great existing ones, like:
@@ -139,6 +151,7 @@ This template was heavily inspired by great existing ones, like:
 - [Lightning Hydra Template](https://github.com/ashleve/lightning-hydra-template/)
 - [Pytorch Tempest](https://github.com/Erlemar/pytorch_tempest)
 - [Yet Another Lightning Hydra Template](https://github.com/gorodnitskiy/yet-another-lightning-hydra-template)
+- [Pytorch Style Guide](https://github.com/IgorSusmelj/pytorch-styleguide)
 <br>
 
 But with a few opininated changes and improvements, go check them out!
