@@ -1,6 +1,11 @@
+import contextlib
+import fcntl
+from pathlib import Path
 import warnings
 from importlib.util import find_spec
 from typing import Any, Callable
+import tempfile
+import filelock
 
 from omegaconf import DictConfig
 
@@ -123,3 +128,51 @@ def get_metric_value(metric_dict: dict[str, Any], metric_name: str | None) -> No
     log.info(f"Retrieved metric value! <{metric_name}={metric_value}>")
 
     return metric_value
+
+
+# The following functions are useful to make your different operations multi-process safe
+
+
+@contextlib.contextmanager
+def file_lock(filename: Path, mode: str = "r") -> Any:
+    """This context manager is used to acquire a file lock on a file, particularly useful for shared resources in multi-process environments (multi GPU/TPU training).
+
+    Args:
+        filename: Path to the file to lock
+        mode: The mode to open the file with, either "r" or "w"
+
+    Raises:
+        ValueError: If the mode is invalid (neither "r" nor "w")
+    """
+    with open(filename, mode) as f:
+        try:
+            match mode:
+                case "r":
+                    fcntl.flock(f.fileno(), fcntl.LOCK_SH)
+                case "w":
+                    fcntl.flock(f.fileno(), fcntl.LOCK_EX)
+                case _:
+                    raise ValueError(f"Invalid mode: {mode}. Expected 'r' or 'w'.")
+            yield f
+        finally:
+            fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+
+
+@contextlib.contextmanager
+def file_lock_operation(file_name: str, operation: Callable) -> Any:
+    """This function is used to perform an operation on a file while acquiring a lock on it.
+
+    The lock is acquired using the `file_lock` context manager, and based on a file stored in a temporary folder
+
+    Args:
+        filename: Path to the file to lock
+        operation: The operation to perform on the file
+
+    Returns:
+        The result of the operation
+    """
+    with tempfile.TemporaryDirectory() as temp_dir:
+        file_path = Path(temp_dir) / file_name
+        with file_lock(file_path, mode="w"):
+            result = operation(file_path)
+        return result
