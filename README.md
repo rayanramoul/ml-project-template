@@ -17,26 +17,128 @@
 
 Click on [<kbd>Use this template</kbd>](https://github.com/rayanramoul/ml-project-template/generate) to start your own project!
 
+<br>
+A template for machine learning or deep learning projects.
 </div>
 
 <br>
 
-A template for machine learning or deep learning projects.
-
 ## Features
 
-.
+- [x] Easy to implement your own model and dataloader
+- [x] Configurable hyperparameters with Hydra
+- [x] Logging with the solution that fits your needs
+- [x] Works on CPU, multi-GPU, and multi-TPUs
 
 ## Installation
 
-.
+- [ ] Use this repository as a template
+- [ ] Clone your repository
+- [ ] Run `make install` to install the dependencies
+- [ ] Add your model which inherits from `LightningModule` in `src/models`
+- [ ] Add your dataset which inherits from `Datamodule` in `src/data`
+- [ ] Add associated yaml configuration files in `configs/` folder following existing examples
 
-## Tree
+## Tree Explained
 
+```
 .
+├── commit-template.txt
+├── configs
+│   ├── callbacks
+│   │   ├── default.yaml
+│   │   ├── early_stopping.yaml
+│   │   ├── model_checkpoint.yaml
+│   │   ├── model_summary.yaml
+│   │   ├── none.yaml
+│   │   └── rich_progress_bar.yaml
+│   ├── data
+│   │   └── mnist.yaml
+│   ├── debug
+│   │   ├── default.yaml
+│   │   ├── fdr.yaml
+│   │   ├── limit.yaml
+│   │   ├── overfit.yaml
+│   │   └── profiler.yaml
+│   ├── eval.yaml
+│   ├── experiment
+│   │   └── example.yaml
+│   ├── extras
+│   │   └── default.yaml
+│   ├── hparams_search
+│   │   └── mnist_optuna.yaml
+│   ├── __init__.py
+│   ├── local
+│   ├── logger
+│   │   ├── aim.yaml
+│   │   ├── comet.yaml
+│   │   ├── csv.yaml
+│   │   ├── many_loggers.yaml
+│   │   ├── mlflow.yaml
+│   │   ├── neptune.yaml
+│   │   ├── tensorboard.yaml
+│   │   └── wandb.yaml
+│   ├── model
+│   │   └── mnist.yaml
+│   ├── paths
+│   │   └── default.yaml
+│   ├── trainer
+│   │   ├── cpu.yaml
+│   │   ├── ddp_sim.yaml
+│   │   ├── ddp.yaml
+│   │   ├── default.yaml
+│   │   ├── gpu.yaml
+│   │   └── mps.yaml
+│   └── train.yaml
+├── data
+├── Makefile
+├── notebooks
+├── pyproject.toml
+├── README.md
+├── ruff.toml
+├── scripts
+│   └── example_train.sh
+├── src
+│   ├── app.py
+│   ├── data
+│   │   ├── components
+│   │   │   └── __init__.py
+│   │   ├── __init__.py
+│   │   └── mnist_datamodule.py
+│   ├── Dockerfile
+│   ├── eval.py
+│   ├── __init__.py
+│   ├── LICENSE
+│   ├── models
+│   │   ├── components
+│   │   │   ├── __init__.py
+│   │   │   └── simple_dense_net.py
+│   │   ├── __init__.py
+│   │   └── mnist_module.py
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── resources
+│   │   └── screenshot.png
+│   ├── train.py
+│   └── utils
+│       ├── __init__.py
+│       ├── instantiators.py
+│       ├── logging_utils.py
+│       ├── pylogger.py
+│       ├── rich_utils.py
+│       └── utils.py
+└── tests
+    └── conftest.py
+
+````
 
 ## Aknowledgements
 
 This template was heavily inspired by great existing ones, like:
 
 - [Lightning Hydra Template](https://github.com/ashleve/lightning-hydra-template/)
+- [Pytorch Tempest](https://github.com/Erlemar/pytorch_tempest)
+- [Yet Another Lightning Hydra Template](https://github.com/gorodnitskiy/yet-another-lightning-hydra-template)
+<br>
+
+But with a few opininated changes and improvements, go check them out!
