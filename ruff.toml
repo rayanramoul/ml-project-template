@@ -27,23 +27,9 @@ select = [
 ]
 ignore = [
   "B023",   # allow using local variable in for-loops
-  "NPY002", # allow legacy np.random usage
-  "TRY003", # allow long messages in exceptions
 ]
 
-# For docstrings
-extend-ignore = [
-  "D100", # undocumented-public-module
-  "D101", # undocumented-public-class
-  "D102", # undocumented-public-method
-  "D103", # undocumented-public-function
-  "D104", # undocumented-public-package
-  "D105", # undocumented-magic-method
-  "D106", # undocumented-public-nested-class
-  "D107", # undocumented-public-init
-  "D205", # blank-line-after-summary
-  "D212", # multi-line-summary-first-line
-]
+extend-ignore = []
 
 [lint.pydocstyle]
 convention = "google"
