@@ -130,6 +130,10 @@ A template for machine learning or deep learning projects.
 
 ## 🔮 Incoming features for this template
 
+- [x] Add support for multi-GPU training
+- [x] UV package manager setup
+- [x] pre-commits hooks
+- [x] Hydra instantiation of models and dataloaders
 - [x] Add torch.compile of models
 - [ ] Integrate TorchTyping
 - [x] Dockerize the project (Dockerfile, run tests and training through docker, optionally docker-compose)
@@ -137,7 +141,7 @@ A template for machine learning or deep learning projects.
 - [ ] Add example using polars
 - [ ] Implement Einops
 - [ ] Example mock tests
-- [ ] Util scripts to download dataset from kaggle for example
+- [x] Util scripts to download dataset from kaggle for example
 - [ ] Cloud oriented scripts (launch your training on AWS, GCP, Azure)
 
 ## 🤝 Contributing
