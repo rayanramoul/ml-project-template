@@ -4,7 +4,7 @@ PYTHON_VERSION = 3.10
 # Some variables
 PLATFORM = linux/arm64
 EXAMPLE_DIR = examples
-DOCKER_RUN_FLAGS = --env NEPTUNE_API_TOKEN $(NEPTUNE_API_TOKEN) --env NEPTUNE_PROJECT $(NEPTUNE_PROJECT) --env NEPTUNE_EXPERIMENT $(NEPTUNE_EXPERIMENT) --platform=linux/amd64 --privileged  --network=host --ulimit nofile=65536:65536 
+DOCKER_RUN_FLAGS = --env NEPTUNE_API_TOKEN $(NEPTUNE_API_TOKEN) --env NEPTUNE_PROJECT $(NEPTUNE_PROJECT) --env NEPTUNE_EXPERIMENT $(NEPTUNE_EXPERIMENT) --platform=linux/amd64 --privileged  --network=host --ulimit nofile=65536:65536
 DOCKER_RUN_FLAGS_GPU = $(DOCKER_RUN_FLAGS) --gpus all
 
 

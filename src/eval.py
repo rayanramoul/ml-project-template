@@ -1,5 +1,6 @@
 from typing import Any
 
+import torch
 import hydra
 import rootutils
 from lightning import LightningDataModule, LightningModule, Trainer
@@ -55,6 +56,10 @@ def evaluate(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
 
     log.info(f"Instantiating model <{cfg.model._target_}>")
     model: LightningModule = hydra.utils.instantiate(cfg.model)
+
+    if cfg.get("model_compile", False):
+        log.info("Compiling model...")
+        torch.compile(model)
 
     log.info("Instantiating loggers...")
     logger: list[Logger] = instantiate_loggers(cfg.get("logger"))

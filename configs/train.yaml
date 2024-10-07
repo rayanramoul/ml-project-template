@@ -42,6 +42,9 @@ train: True
 # lightning chooses best weights based on the metric specified in checkpoint callback
 test: True
 
+# Whether or not call torch.compile(model)
+model_compile: True
+
 # simply provide checkpoint path to resume training
 ckpt_path: null
 

@@ -35,4 +35,3 @@
 # After writing the commit message, you can save and exit.
 #
 # Please remove all lines starting with `#` before committing.
-

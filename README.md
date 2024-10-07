@@ -130,9 +130,9 @@ A template for machine learning or deep learning projects.
 
 ## 🔮 Incoming features for this template
 
-- [ ] Add torch.compile of models
+- [x] Add torch.compile of models
 - [ ] Integrate TorchTyping
-- [ ] Dockerize the project (Dockerfile, run tests and training through docker, optionally docker-compose)
+- [x] Dockerize the project (Dockerfile, run tests and training through docker, optionally docker-compose)
 - [ ] Add example of efficient multi-processing using pool map
 - [ ] Add example using polars
 - [ ] Implement Einops

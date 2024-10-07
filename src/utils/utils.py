@@ -1,11 +1,11 @@
 import contextlib
 import fcntl
-from pathlib import Path
-import warnings
-from importlib.util import find_spec
-from typing import Any, Callable
 import tempfile
-import filelock
+import warnings
+from collections.abc import Callable
+from importlib.util import find_spec
+from pathlib import Path
+from typing import Any
 
 from omegaconf import DictConfig
 

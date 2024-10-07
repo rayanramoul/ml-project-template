@@ -16,3 +16,6 @@ tags: ["dev"]
 
 # passing checkpoint path is necessary for evaluation
 ckpt_path: ???
+
+# Whether or not call torch.compile(model)
+model_compile: True

@@ -1,9 +1,9 @@
 from typing import Any
 
+import torch
 import hydra
 import lightning as L
 import rootutils
-import torch
 from lightning import Callback, LightningDataModule, LightningModule, Trainer
 from lightning.pytorch.loggers import Logger
 from omegaconf import DictConfig
@@ -62,6 +62,10 @@ def train(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
 
     log.info(f"Instantiating model <{cfg.model._target_}>")
     model: LightningModule = hydra.utils.instantiate(cfg.model)
+
+    if cfg.get("model_compile", False):
+        log.info("Compiling model...")
+        torch.compile(model)
 
     log.info("Instantiating callbacks...")
     callbacks: list[Callback] = instantiate_callbacks(cfg.get("callbacks"))

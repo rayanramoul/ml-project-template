@@ -46,4 +46,3 @@ services:
 # secrets:
 #   db-password:
 #     file: db/password.txt
-
