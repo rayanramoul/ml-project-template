@@ -15,11 +15,4 @@
 .ruff_cache
 notebooks/*.ipynb
 notebooks/*.ipynb_checkpoints
-data/**.csv
-data/**.zip
-data/**.pkl
-data/**.json
-data/**.feather
-data/**.png
-data/**.jpg
-data/**.jpeg
+data/**
