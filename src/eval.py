@@ -1,11 +1,10 @@
 from typing import Any
 
-import torch
 import hydra
+import torch
 from lightning import LightningDataModule, LightningModule, Trainer
 from lightning.pytorch.loggers import Logger
 from omegaconf import DictConfig
-
 
 from src.utils import (
     RankedLogger,

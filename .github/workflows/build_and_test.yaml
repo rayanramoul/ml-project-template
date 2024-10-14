@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
 
 jobs:
@@ -13,9 +14,6 @@ jobs:
     steps:
       - name: Checkout your repo 📦
         uses: actions/checkout@v4
-
-      # Workaround for https://github.com/actions/checkout/issues/1169
-      - run: git config --system --add safe.directory $GITHUB_WORKSPACE
 
       - name: Set up Python
         uses: actions/setup-python@v4

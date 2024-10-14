@@ -62,11 +62,12 @@ class MNISTDataModule(LightningDataModule):
     ) -> None:
         """Initialize a `MNISTDataModule`.
 
-        :param data_dir: The data directory. Defaults to `"data/"`.
-        :param train_val_test_split: The train, validation and test split. Defaults to `(55_000, 5_000, 10_000)`.
-        :param batch_size: The batch size. Defaults to `64`.
-        :param num_workers: The number of workers. Defaults to `0`.
-        :param pin_memory: Whether to pin memory. Defaults to `False`.
+        Args:
+            data_dir: The data directory. Defaults to `"data/"`.
+            train_val_test_split: The train, validation and test split. Defaults to `(55_000, 5_000, 10_000)`.
+            batch_size: The batch size. Defaults to `64`.
+            num_workers: The number of workers. Defaults to `0`.
+            pin_memory: Whether to pin memory. Defaults to `False`.
         """
         super().__init__()
 
@@ -92,7 +93,9 @@ class MNISTDataModule(LightningDataModule):
         return 10
 
     def prepare_data(self) -> None:
-        """Download data if needed. Lightning ensures that `self.prepare_data()` is called only
+        """Download data if needed.
+
+        Lightning ensures that `self.prepare_data()` is called only
         within a single process on CPU, so you can safely add your downloading logic within. In
         case of multi-node training, the execution of this hook depends upon
         `self.prepare_data_per_node()`.
@@ -110,13 +113,15 @@ class MNISTDataModule(LightningDataModule):
         `self.prepare_data()` and there is a barrier in between which ensures that all the processes proceed to
         `self.setup()` once the data is prepared and available for use.
 
-        :param stage: The stage to setup. Either `"fit"`, `"validate"`, `"test"`, or `"predict"`. Defaults to ``None``.
+        Args:
+            stage: The stage to setup. Either `"fit"`, `"validate"`, `"test"`, or `"predict"`. Defaults to ``None``.
         """
         # Divide batch size by the number of devices.
         if self.trainer is not None:
             if self.hparams.batch_size % self.trainer.world_size != 0:
-                raise RuntimeError(
-                    f"Batch size ({self.hparams.batch_size}) is not divisible by the number of devices ({self.trainer.world_size})."
+                raise RuntimeError(  # noqa
+                    f"Batch size ({self.hparams.batch_size}) "
+                    "is not divisible by the number of devices ({self.trainer.world_size})."
                 )
             self.batch_size_per_device = self.hparams.batch_size // self.trainer.world_size
 
@@ -134,7 +139,8 @@ class MNISTDataModule(LightningDataModule):
     def train_dataloader(self) -> DataLoader[Any]:
         """Create and return the train dataloader.
 
-        :return: The train dataloader.
+        Returns:
+            The train dataloader.
         """
         return DataLoader(
             dataset=self.data_train,
@@ -147,7 +153,8 @@ class MNISTDataModule(LightningDataModule):
     def val_dataloader(self) -> DataLoader[Any]:
         """Create and return the validation dataloader.
 
-        :return: The validation dataloader.
+        Returns:
+            The validation dataloader.
         """
         return DataLoader(
             dataset=self.data_val,
@@ -160,7 +167,8 @@ class MNISTDataModule(LightningDataModule):
     def test_dataloader(self) -> DataLoader[Any]:
         """Create and return the test dataloader.
 
-        :return: The test dataloader.
+        Returns:
+            The test dataloader.
         """
         return DataLoader(
             dataset=self.data_test,
@@ -171,10 +179,12 @@ class MNISTDataModule(LightningDataModule):
         )
 
     def teardown(self, stage: str | None = None) -> None:
-        """Lightning hook for cleaning up after `trainer.fit()`, `trainer.validate()`,
-        `trainer.test()`, and `trainer.predict()`.
+        """Lightning hook for cleaning up after trainer main functions.
 
-        :param stage: The stage being torn down. Either `"fit"`, `"validate"`, `"test"`, or `"predict"`.
+        `trainer.fit()`, `trainer.validate()`,`trainer.test()`, and `trainer.predict()`.
+
+        Args:
+            stage: The stage being torn down. Either `"fit"`, `"validate"`, `"test"`, or `"predict"`.
             Defaults to ``None``.
         """
         pass
@@ -182,15 +192,16 @@ class MNISTDataModule(LightningDataModule):
     def state_dict(self) -> dict[Any, Any]:
         """Called when saving a checkpoint. Implement to generate and save the datamodule state.
 
-        :return: A dictionary containing the datamodule state that you want to save.
+        Returns:
+            A dictionary containing the datamodule state that you want to save.
         """
         return {}
 
     def load_state_dict(self, state_dict: dict[str, Any]) -> None:
-        """Called when loading a checkpoint. Implement to reload datamodule state given datamodule
-        `state_dict()`.
+        """Called when loading a checkpoint. Implement to reload datamodule state given datamodule `state_dict()`.
 
-        :param state_dict: The datamodule state returned by `self.state_dict()`.
+        Args:
+            state_dict: The datamodule state returned by `self.state_dict()`.
         """
         pass
 

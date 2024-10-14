@@ -1,6 +1,6 @@
-from src.utils import RankedLogger
 import cloudpathlib
 
+from src.utils import RankedLogger
 
 log = RankedLogger(__name__, rank_zero_only=True)
 

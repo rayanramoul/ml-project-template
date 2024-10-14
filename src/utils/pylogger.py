@@ -13,8 +13,9 @@ class RankedLogger(logging.LoggerAdapter):
         rank_zero_only: bool = False,
         extra: Mapping[str, object] | None = None,
     ) -> None:
-        """Initializes a multi-GPU-friendly python command line logger that logs on all processes
-        with their rank prefixed in the log message.
+        """Initializes a multi-GPU-friendly python command line logger that logs.
+
+        On all processes with their rank prefixed in the log message.
 
         Args:
             name: The name of the logger. Default is ``__name__``.
@@ -26,7 +27,9 @@ class RankedLogger(logging.LoggerAdapter):
         self.rank_zero_only = rank_zero_only
 
     def log(self, level: int, msg: str, rank: int | None = None, *args, **kwargs) -> None:
-        """Delegate a log call to the underlying logger, after prefixing its message with the rank
+        """Delegate a log call to the underlying logger.
+
+        After prefixing its message with the rank
         of the process it's being logged from. If `'rank'` is provided, then the log will only
         occur on that rank/process.
 
@@ -41,7 +44,7 @@ class RankedLogger(logging.LoggerAdapter):
             msg, kwargs = self.process(msg, kwargs)
             current_rank = getattr(rank_zero_only, "rank", None)
             if current_rank is None:
-                raise RuntimeError("The `rank_zero_only.rank` needs to be set before use")
+                raise RuntimeError("The `rank_zero_only.rank` needs to be set before use")  # noqa
             msg = rank_prefixed_message(msg, current_rank)
             if self.rank_zero_only:
                 if current_rank == 0:

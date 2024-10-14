@@ -1,20 +1,25 @@
 import polars as pl
 import torch
-from torch.utils.data import Dataset, DataLoader
 from pytorch_lightning import LightningDataModule
 from sklearn.model_selection import train_test_split
+from torch.utils.data import DataLoader, Dataset
 
 
 # Custom PyTorch Dataset wrapping a Polars DataFrame
 class PolarsDataset(Dataset):
-    def __init__(self, df: pl.DataFrame, output_column: str):
+    """Custom PyTorch Dataset wrapping a Polars DataFrame."""
+
+    def __init__(self, df: pl.DataFrame, output_column: str) -> None:
+        """Initialize the PolarsDataset."""
         self.df = df
         self.output_column = output_column
 
-    def __len__(self):
+    def __len__(self) -> int:
+        """Return the number of rows in the dataset."""
         return self.df.shape[0]
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
+        """Return the features and label for the given index."""
         row = self.df[idx]
         features = torch.tensor([val for col, val in row.items() if col != self.output_column], dtype=torch.float32)
         label = torch.tensor(row[self.output_column], dtype=torch.long)

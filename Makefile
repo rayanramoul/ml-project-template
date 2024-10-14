@@ -35,4 +35,3 @@ train-docker: docker-build
 
 evaluate-docker: docker-build
 	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/evaluate.py ${ARGS}"
-

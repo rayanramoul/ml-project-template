@@ -42,9 +42,6 @@ repos:
     rev: v1.9.0
     hooks:
       - id: mypy
-        args:
-          - --config
-          - build/mypy.ini
         additional_dependencies:
           - types-requests
 
@@ -54,10 +51,3 @@ repos:
       - id: conventional-pre-commit
         stages:
           - commit-msg
-  - repo: https://github.com/pycqa/pydocstyle
-    rev: 6.1.1
-    hooks:
-      - id: pydocstyle
-        args:
-          - --convention=google
-          - --add-ignore=D104,D100,D200
