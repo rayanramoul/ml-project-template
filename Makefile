@@ -27,11 +27,12 @@ train:
 evaluate:
 	uv run src/evaluate.py ${ARGS}
 
-docker-build:
-	docker build --platform=${PLATFORM} --target lightning-base -t lightning-base .
+build-docker:
+	docker build --target lightning-base -t lightning-base .
 
 train-docker: docker-build
-	docker run lightning-base:latest  /bin/bash -i -c "uv run src/train.py ${ARGS}"
+	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/train.py ${ARGS}"
 
 evaluate-docker: docker-build
-	docker run lightning-base:latest  /bin/bash -i -c "uv run src/evaluate.py ${ARGS}"
+	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/evaluate.py ${ARGS}"
+
