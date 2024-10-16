@@ -1,3 +1,5 @@
+"""PyTorch Lightning DataModule for loading dataset using Polars."""
+
 import polars as pl
 import torch
 from pytorch_lightning import LightningDataModule

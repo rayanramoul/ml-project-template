@@ -1,3 +1,5 @@
+"""Sample Streamlit application."""
+
 import pandas as pd
 import streamlit as st
 

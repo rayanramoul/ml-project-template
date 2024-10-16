@@ -1,3 +1,5 @@
+"""Main evaluation script."""
+
 from typing import Any
 
 import hydra

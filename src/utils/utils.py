@@ -1,3 +1,5 @@
+"""Utility functions for various tasks."""
+
 import contextlib
 import fcntl
 import tempfile
@@ -135,7 +137,9 @@ def get_metric_value(metric_dict: dict[str, Any], metric_name: str | None) -> No
 
 @contextlib.contextmanager
 def file_lock(filename: Path, mode: str = "r") -> Any:
-    """This context manager is used to acquire a file lock on a file, particularly useful for shared resources in multi-process environments (multi GPU/TPU training).
+    """This context manager is used to acquire a file lock on a file.
+
+    particularly useful for shared resources in multi-process environments (multi GPU/TPU training).
 
     Args:
         filename: Path to the file to lock
@@ -152,7 +156,7 @@ def file_lock(filename: Path, mode: str = "r") -> Any:
                 case "w":
                     fcntl.flock(f.fileno(), fcntl.LOCK_EX)
                 case _:
-                    raise ValueError(f"Invalid mode: {mode}. Expected 'r' or 'w'.")
+                    raise ValueError("Expected mode 'r' or 'w'.")  # noqa
             yield f
         finally:
             fcntl.flock(f.fileno(), fcntl.LOCK_UN)
@@ -165,7 +169,7 @@ def file_lock_operation(file_name: str, operation: Callable) -> Any:
     The lock is acquired using the `file_lock` context manager, and based on a file stored in a temporary folder
 
     Args:
-        filename: Path to the file to lock
+        file_name: Path to the file to lock
         operation: The operation to perform on the file
 
     Returns:
