@@ -1,12 +1,15 @@
 """Main training script."""
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import hydra
-import lightning as L
+import lightning
 import torch
-from lightning import Callback, LightningDataModule, LightningModule, Trainer
-from lightning.pytorch.loggers import Logger
+
+if TYPE_CHECKING:
+    from lightning import Callback, LightningDataModule, LightningModule, Trainer
+    from lightning.pytorch.loggers import Logger
+
 from omegaconf import DictConfig
 
 from src.utils import (
@@ -37,7 +40,7 @@ def train(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     """
     # set seed for random number generators in pytorch, numpy and python.random
     if cfg.get("seed"):
-        L.seed_everything(cfg.seed, workers=True)
+        lightning.seed_everything(cfg.seed, workers=True)
 
     log.info(f"Instantiating datamodule <{cfg.data._target_}>")
     datamodule: LightningDataModule = hydra.utils.instantiate(cfg.data)

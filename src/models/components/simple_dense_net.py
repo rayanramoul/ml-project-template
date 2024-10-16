@@ -1,3 +1,5 @@
+"""Simple dense neural network."""
+
 import torch
 from torch import nn
 
