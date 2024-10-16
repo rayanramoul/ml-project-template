@@ -1,3 +1,5 @@
+"""Module to instantiate different objects types."""
+
 import hydra
 from lightning import Callback
 from lightning.pytorch.loggers import Logger
@@ -21,7 +23,7 @@ def instantiate_callbacks(callbacks_cfg: DictConfig) -> list[Callback]:
         return callbacks
 
     if not isinstance(callbacks_cfg, DictConfig):
-        raise TypeError("Callbacks config must be a DictConfig!")
+        raise TypeError("Callbacks config must be a DictConfig!")  # noqa: TRY003
 
     for _, cb_conf in callbacks_cfg.items():
         if isinstance(cb_conf, DictConfig) and "_target_" in cb_conf:
@@ -44,7 +46,7 @@ def instantiate_loggers(logger_cfg: DictConfig) -> list[Logger]:
         return logger
 
     if not isinstance(logger_cfg, DictConfig):
-        raise TypeError("Logger config must be a DictConfig!")
+        raise TypeError("Logger config must be a DictConfig!")  # noqa: TRY003
 
     for _, lg_conf in logger_cfg.items():
         if isinstance(lg_conf, DictConfig) and "_target_" in lg_conf:

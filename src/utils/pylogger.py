@@ -1,3 +1,5 @@
+"""Code for logging on multi-GPU-friendly."""
+
 import logging
 from collections.abc import Mapping
 

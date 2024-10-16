@@ -8,7 +8,6 @@ DOCKER_RUN_FLAGS = --env NEPTUNE_API_TOKEN $(NEPTUNE_API_TOKEN) --env NEPTUNE_PR
 DOCKER_RUN_FLAGS_GPU = $(DOCKER_RUN_FLAGS) --gpus all
 export PROJECT_ROOT = $(shell pwd)
 
-
 init:
 	uv init -p $(PYTHON_VERSION)
 

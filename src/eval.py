@@ -1,11 +1,13 @@
 """Main evaluation script."""
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import hydra
 import torch
-from lightning import LightningDataModule, LightningModule, Trainer
-from lightning.pytorch.loggers import Logger
+
+if TYPE_CHECKING:
+    from lightning import LightningDataModule, LightningModule, Trainer
+    from lightning.pytorch.loggers import Logger
 from omegaconf import DictConfig
 
 from src.utils import (

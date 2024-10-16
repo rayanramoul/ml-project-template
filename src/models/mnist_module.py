@@ -1,3 +1,5 @@
+"""Mnist simple model."""
+
 from typing import Any
 
 import torch
@@ -44,7 +46,7 @@ class MNISTLitModule(LightningModule):
         net: torch.nn.Module,
         optimizer: torch.optim.Optimizer,
         scheduler: torch.optim.lr_scheduler,
-        compile: bool,
+        compile_model: bool,
     ) -> None:
         """Initialize a `MNISTLitModule`.
 
@@ -52,6 +54,7 @@ class MNISTLitModule(LightningModule):
             net: The model to train.
             optimizer: The optimizer to use for training.
             scheduler: The learning rate scheduler to use for training.
+            compile_model: Whether or not compile the model.
         """
         super().__init__()
 
@@ -185,8 +188,7 @@ class MNISTLitModule(LightningModule):
         pass
 
     def setup(self, stage: str) -> None:
-        """Lightning hook that is called at the beginning of fit (train + validate), validate,
-        test, or predict.
+        """Lightning hook that is called at the beginning of fit (train + validate), validate, test, or predict.
 
         This is a good hook when you need to build models dynamically or adjust something about
         them. This hook is called on every process when using DDP.
@@ -194,11 +196,12 @@ class MNISTLitModule(LightningModule):
         Args:
             stage: Either `"fit"`, `"validate"`, `"test"`, or `"predict"`.
         """
-        if self.hparams.compile and stage == "fit":
+        if self.hparams.compile_model and stage == "fit":
             self.net = torch.compile(self.net)
 
     def configure_optimizers(self) -> dict[str, Any]:
         """Choose what optimizers and learning-rate schedulers to use in your optimization.
+
         Normally you'd need one. But in the case of GANs or similar you might have multiple.
 
         Examples:

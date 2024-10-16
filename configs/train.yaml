@@ -28,7 +28,7 @@ defaults:
   - debug: null
 
 # task name, determines output directory path
-task_name: "train"
+task_name: ""
 
 # tags to help you identify your experiments
 # you can overwrite this in experiment configs

@@ -1,3 +1,5 @@
+"""Rich utils to print config tree."""
+
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -85,7 +87,7 @@ def enforce_tags(cfg: DictConfig, save_to_file: bool = False) -> None:
     """
     if not cfg.get("tags"):
         if "id" in HydraConfig().cfg.hydra.job:
-            raise ValueError("Specify tags before launching a multirun!")
+            raise ValueError("Specify tags before launching a multirun!")  # noqa
 
         log.warning("No tags provided in config. Prompting user to input tags...")
         tags = Prompt.ask("Enter a list of comma separated tags", default="dev")
