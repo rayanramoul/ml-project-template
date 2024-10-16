@@ -16,3 +16,5 @@
 notebooks/*.ipynb
 notebooks/*.ipynb_checkpoints
 data/**
+public/**
+site/**
