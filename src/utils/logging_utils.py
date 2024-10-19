@@ -1,7 +1,7 @@
 """Logging utility instantiator."""
 
-from typing import Any
 import sys
+from typing import Any
 
 from lightning_utilities.core.rank_zero import rank_zero_only
 from omegaconf import OmegaConf
@@ -15,14 +15,10 @@ log = pylogger.RankedLogger(__name__, rank_zero_only=True)
 def log_hyperparameters(object_dict: dict[str, Any]) -> None:
     """Controls which config parts are saved by Lightning loggers.
 
-    Additionally saves:
-        - Number of model parameters
+    Additionally saves number of model parameters
 
     Args:
-        - object_dict: A dictionary containing the following objects:
-            - `"cfg"`: A DictConfig object containing the main config.
-            - `"model"`: The Lightning model.
-            - `"trainer"`: The Lightning trainer.
+        object_dict: A dictionary containing the following objects: cfg, model, trainer.
     """
     hparams = {}
 

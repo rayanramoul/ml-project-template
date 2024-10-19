@@ -6,8 +6,8 @@ import torch
 from lightning import LightningModule
 from torchmetrics import MaxMetric, MeanMetric
 from torchmetrics.classification.accuracy import Accuracy
-from typeguard import typechecked
 from torchtyping import TensorType, patch_typeguard
+from typeguard import typechecked
 
 #
 # Ensure typeguard is patched with torchtyping
@@ -87,7 +87,7 @@ class MNISTLitModule(LightningModule):
         self.val_acc_best = MaxMetric()
 
     @typechecked
-    def forward(self, x: list[TensorType[1, 28, 28]]) -> TensorType["batch", 10]:
+    def forward(self, x: TensorType["batch", 1, 28, 28]) -> TensorType["batch", 10]:  # noqa
         """Perform a forward pass through the model.
 
         Args:
@@ -107,13 +107,12 @@ class MNISTLitModule(LightningModule):
         self.val_acc_best.reset()
 
     @typechecked
-    def model_step(
-        self, batch: list[list[TensorType[1, 28, 28]], TensorType["batch"]]
-    ) -> list[TensorType["batch"], TensorType["batch"], TensorType["batch"]]:
+    def model_step(self, x: TensorType["batch", 1, 28, 28], y: TensorType["batch"]):  # noqa
         """Perform a single model step.
 
         Args:
-            batch: A tuple containing the input tensor of images and the target labels.
+            x: Tensor of shape [batch, 1, 28, 28] representing the images.
+            y: Tensor of shape [batch] representing the classes.
 
         Returns:
             A tuple containing:
@@ -121,7 +120,6 @@ class MNISTLitModule(LightningModule):
                 - preds: A tensor of predicted class indices (batch_size,)
                 - targets: A tensor of true class labels (batch_size,)
         """
-        x, y = batch
         logits = self.forward(x)
         loss = self.criterion(logits, y)
         preds = torch.argmax(logits, dim=1)
@@ -138,7 +136,8 @@ class MNISTLitModule(LightningModule):
         Returns:
             A scalar loss tensor.
         """
-        loss, preds, targets = self.model_step(batch)
+        x, y = batch
+        loss, preds, targets = self.model_step(x, y)
         self.train_loss(loss)
         self.train_acc(preds, targets)
         self.log("train/loss", self.train_loss, on_step=False, on_epoch=True, prog_bar=True)
@@ -157,15 +156,8 @@ class MNISTLitModule(LightningModule):
                 labels.
             batch_idx: The index of the current batch.
         """
-        from pprint import pprint
-
-        print(f"\n\n\n")
-        pprint(batch)
-        print(f"Batch[0] Shape {batch[0].shape}")
-        print(f"Batch[1] Shape {batch[1].shape}")
-        print(f"Batch type {type(batch)}")
-        print(f"\n\n\n")
-        loss, preds, targets = self.model_step(batch)
+        x, y = batch
+        loss, preds, targets = self.model_step(x, y)
 
         # update and log metrics
         self.val_loss(loss)
@@ -189,7 +181,8 @@ class MNISTLitModule(LightningModule):
                 labels.
             batch_idx: The index of the current batch.
         """
-        loss, preds, targets = self.model_step(batch)
+        x, y = batch
+        loss, preds, targets = self.model_step(x, y)
 
         # update and log metrics
         self.test_loss(loss)
