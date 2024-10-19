@@ -4,7 +4,7 @@ PYTHON_VERSION = 3.10
 # Some variables
 PLATFORM = linux/arm64
 EXAMPLE_DIR = examples
-DOCKER_RUN_FLAGS = --env NEPTUNE_API_TOKEN $(NEPTUNE_API_TOKEN) --env NEPTUNE_PROJECT $(NEPTUNE_PROJECT) --env NEPTUNE_EXPERIMENT $(NEPTUNE_EXPERIMENT) --platform=linux/amd64 --privileged  --network=host --ulimit nofile=65536:65536
+DOCKER_RUN_FLAGS = --env NEPTUNE_API_TOKEN $(NEPTUNE_API_TOKEN) --env NEPTUNE_PROJECT $(NEPTUNE_PROJECT) --privileged --network=host --ulimit nofile=65536:65536
 DOCKER_RUN_FLAGS_GPU = $(DOCKER_RUN_FLAGS) --gpus all
 export PROJECT_ROOT = $(shell pwd)
 
@@ -34,6 +34,12 @@ evaluate:
 
 build-docker:
 	docker build --target lightning-base -t lightning-base .
+
+dev-container-cpu: build-docker
+	docker run $(DOCKER_RUN_FLAGS) -v $(PROJECT_ROOT):/app -it lightning-base:latest /bin/bash
+
+dev-container-gpu: build-docker
+	docker run $(DOCKER_RUN_FLAGS_GPU) -v $(PROJECT_ROOT):/app -it lightning-base:latest /bin/bash
 
 train-docker: docker-build
 	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/train.py ${ARGS}"

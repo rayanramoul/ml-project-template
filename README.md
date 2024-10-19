@@ -98,7 +98,7 @@ A template for machine learning or deep learning projects.
 - [x] Add torch.compile of models
 - [x] Integrate TorchTyping
 - [x] Dockerize the project (Dockerfile, run tests and training through docker, optionally docker-compose)
-- [ ] Add example of efficient multi-processing using pool map
+- [x] Add example of efficient multi-processing using pool map
 - [x] Add example using polars
 - [x] Example mock tests
 - [x] Util scripts to download dataset from kaggle for example
