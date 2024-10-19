@@ -1,6 +1,5 @@
 **/conda
 **/conda_environments
-**/*.png
 **/.neptune
 **/logs
 **/tmp
