@@ -1,5 +1,7 @@
 <div align="center">
 
+<img width="200" src="https://github.com/rayanramoul/ml-project-template/blob/master/assets/img/icon.png?raw=true">
+</img>
 # Machine Learning Project Template
 
 [![python](https://img.shields.io/badge/-Python_3.8_%7C_3.9_%7C_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -8,7 +10,6 @@
 [![hydra](https://img.shields.io/badge/Config-Hydra_1.3-89b8cd)](https://hydra.cc/)
 [![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
 [![isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/) <br>
-[![tests](https://github.com/ashleve/lightning-hydra-template/actions/workflows/test.yml/badge.svg)](https://github.com/ashleve/lightning-hydra-template/actions/workflows/test.yml)
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ashleve/lightning-hydra-template/pulls)
 
 Click on [<kbd>Use this template</kbd>](https://github.com/rayanramoul/ml-project-template/generate) to start your own project! or go to the [Documentation](https://rayanramoul.github.io/ml-project-template/) for more information.
@@ -16,6 +17,7 @@ Click on [<kbd>Use this template</kbd>](https://github.com/rayanramoul/ml-projec
 <br>
 A template for machine learning or deep learning projects.
 </div>
+<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" />
 
 <br>
 
@@ -42,49 +44,17 @@ A template for machine learning or deep learning projects.
 ├── commit-template.txt
 ├── configs
 │   ├── callbacks
-│   │   ├── default.yaml
-│   │   ├── early_stopping.yaml
-│   │   ├── model_checkpoint.yaml
-│   │   ├── model_summary.yaml
-│   │   ├── none.yaml
-│   │   └── rich_progress_bar.yaml
 │   ├── data
-│   │   └── mnist.yaml
 │   ├── debug
-│   │   ├── default.yaml
-│   │   ├── fdr.yaml
-│   │   ├── limit.yaml
-│   │   ├── overfit.yaml
-│   │   └── profiler.yaml
 │   ├── eval.yaml
 │   ├── experiment
-│   │   └── example.yaml
 │   ├── extras
-│   │   └── default.yaml
 │   ├── hparams_search
-│   │   └── mnist_optuna.yaml
-│   ├── __init__.py
 │   ├── local
 │   ├── logger
-│   │   ├── aim.yaml
-│   │   ├── comet.yaml
-│   │   ├── csv.yaml
-│   │   ├── many_loggers.yaml
-│   │   ├── mlflow.yaml
-│   │   ├── neptune.yaml
-│   │   ├── tensorboard.yaml
-│   │   └── wandb.yaml
 │   ├── model
-│   │   └── mnist.yaml
 │   ├── paths
-│   │   └── default.yaml
 │   ├── trainer
-│   │   ├── cpu.yaml
-│   │   ├── ddp_sim.yaml
-│   │   ├── ddp.yaml
-│   │   ├── default.yaml
-│   │   ├── gpu.yaml
-│   │   └── mps.yaml
 │   └── train.yaml
 ├── data
 ├── Makefile
@@ -98,26 +68,17 @@ A template for machine learning or deep learning projects.
 │   ├── app.py
 │   ├── data
 │   │   ├── components
-│   │   │   └── __init__.py
-│   │   ├── __init__.py
 │   │   └── mnist_datamodule.py
 │   ├── Dockerfile
 │   ├── eval.py
-│   ├── __init__.py
-│   ├── LICENSE
 │   ├── models
 │   │   ├── components
 │   │   │   ├── __init__.py
 │   │   │   └── simple_dense_net.py
 │   │   ├── __init__.py
 │   │   └── mnist_module.py
-│   ├── README.md
-│   ├── requirements.txt
-│   ├── resources
-│   │   └── screenshot.png
 │   ├── train.py
 │   └── utils
-│       ├── __init__.py
 │       ├── instantiators.py
 │       ├── logging_utils.py
 │       ├── pylogger.py

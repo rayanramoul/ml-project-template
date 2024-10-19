@@ -14,11 +14,17 @@ init:
 install: configure_commit_template
 	uv sync -p $(PYTHON_VERSION) && uv lock
 
-configure_commit_template:
+configure-commit-template:
 	git config --global commit.template $(realpath commit-template.txt)
+
+configre-pre-commit:
+	uvx pre-commit install
 
 format:
 	uvx pre-commit run --all-files
+
+test:
+	uv run pytest
 
 train:
 	uv run src/train.py ${ARGS}

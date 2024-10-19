@@ -9,6 +9,7 @@ from importlib.util import find_spec
 from pathlib import Path
 from typing import Any
 
+import requests
 from omegaconf import DictConfig
 
 from src.utils import pylogger, rich_utils
@@ -176,3 +177,19 @@ def file_lock_operation(file_name: str, operation: Callable) -> Any:
         with file_lock(file_path, mode="w"):
             result = operation(file_path)
         return result
+
+
+def fetch_data(url):
+    """Fetches data from a URL."""
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    return None
+
+
+def process_data(url):
+    """Fetches data from a URL and processes it."""
+    data = fetch_data(url)
+    if data:
+        return len(data)  # Just an example of processing, counting data length
+    return 0

@@ -8,7 +8,7 @@
 **/*.csv
 **/*.ckpt
 *lightning_logs*
-*hydra*
+.hydra_logs/
 **/*.log
 **/old
 **pycache**
@@ -18,3 +18,4 @@ notebooks/*.ipynb_checkpoints
 data/**
 public/**
 site/**
+logs/
