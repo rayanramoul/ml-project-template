@@ -1,0 +1,6 @@
+api:
+  _target_: src.serve_apis.mnist_serve.MNISTServeAPI
+  checkpoint_path: "./checkpoints/last.ckpt"
+port: 8000
+accelerator: "auto"
+max_batch_size: 1

@@ -8,6 +8,7 @@
 **/*.ckpt
 *lightning_logs*
 .hydra_logs/
+.hydra/
 **/*.log
 **/old
 **pycache**
@@ -17,4 +18,6 @@ notebooks/*.ipynb_checkpoints
 data/**
 public/**
 site/**
-logs/
+logs/**
+*config_tree*
+client.py

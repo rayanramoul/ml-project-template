@@ -103,7 +103,7 @@ A template for machine learning or deep learning projects.
 - [x] Example mock tests
 - [x] Util scripts to download dataset from kaggle for example
 - [x] Cloud oriented scripts (launch your training on AWS, GCP, Azure)
-- [ ] Add config architecture and example of LitServe
+- [x] Add config architecture and example of LitServe
 
 ## 🤝 Contributing
 
