@@ -6,6 +6,12 @@ import torch
 from lightning import LightningModule
 from torchmetrics import MaxMetric, MeanMetric
 from torchmetrics.classification.accuracy import Accuracy
+from typeguard import typechecked
+from torchtyping import TensorType, patch_typeguard
+
+#
+# Ensure typeguard is patched with torchtyping
+patch_typeguard()
 
 
 class MNISTLitModule(LightningModule):
@@ -80,14 +86,15 @@ class MNISTLitModule(LightningModule):
         # for tracking best so far validation accuracy
         self.val_acc_best = MaxMetric()
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Perform a forward pass through the model `self.net`.
+    @typechecked
+    def forward(self, x: list[TensorType[1, 28, 28]]) -> TensorType["batch", 10]:
+        """Perform a forward pass through the model.
 
         Args:
-            x: A tensor of images.
+            x: A tensor of shape (batch_size, 1, 28, 28) representing the MNIST images.
 
         Returns:
-        A tensor of logits.
+            A tensor of shape (batch_size, 10) representing the logits for each class.
         """
         return self.net(x)
 
@@ -99,17 +106,20 @@ class MNISTLitModule(LightningModule):
         self.val_acc.reset()
         self.val_acc_best.reset()
 
-    def model_step(self, batch: tuple[torch.Tensor, torch.Tensor]) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-        """Perform a single model step on a batch of data.
+    @typechecked
+    def model_step(
+        self, batch: list[list[TensorType[1, 28, 28]], TensorType["batch"]]
+    ) -> list[TensorType["batch"], TensorType["batch"], TensorType["batch"]]:
+        """Perform a single model step.
 
         Args:
-            batch: A batch of data (a tuple) containing the input tensor of images and target labels.
+            batch: A tuple containing the input tensor of images and the target labels.
 
         Returns:
-            A tuple containing (in order):
-                - A tensor of losses.
-                - A tensor of predictions.
-                - A tensor of target labels.
+            A tuple containing:
+                - loss: A tensor of shape (batch_size,)
+                - preds: A tensor of predicted class indices (batch_size,)
+                - targets: A tensor of true class labels (batch_size,)
         """
         x, y = batch
         logits = self.forward(x)
@@ -117,26 +127,22 @@ class MNISTLitModule(LightningModule):
         preds = torch.argmax(logits, dim=1)
         return loss, preds, y
 
-    def training_step(self, batch: tuple[torch.Tensor, torch.Tensor], batch_idx: int) -> torch.Tensor:
-        """Perform a single training step on a batch of data from the training set.
+    @typechecked
+    def training_step(self, batch: Any) -> TensorType[()]:
+        """Perform a single training step.
 
         Args:
-            batch: A batch of data (a tuple) containing the input tensor of images and target
-                labels.
+            batch: A tuple containing input images and target labels.
             batch_idx: The index of the current batch.
 
         Returns:
-            A tensor of losses between model predictions and targets.
+            A scalar loss tensor.
         """
         loss, preds, targets = self.model_step(batch)
-
-        # update and log metrics
         self.train_loss(loss)
         self.train_acc(preds, targets)
         self.log("train/loss", self.train_loss, on_step=False, on_epoch=True, prog_bar=True)
         self.log("train/acc", self.train_acc, on_step=False, on_epoch=True, prog_bar=True)
-
-        # return loss or backpropagation will fail
         return loss
 
     def on_train_epoch_end(self) -> None:
@@ -151,6 +157,14 @@ class MNISTLitModule(LightningModule):
                 labels.
             batch_idx: The index of the current batch.
         """
+        from pprint import pprint
+
+        print(f"\n\n\n")
+        pprint(batch)
+        print(f"Batch[0] Shape {batch[0].shape}")
+        print(f"Batch[1] Shape {batch[1].shape}")
+        print(f"Batch type {type(batch)}")
+        print(f"\n\n\n")
         loss, preds, targets = self.model_step(batch)
 
         # update and log metrics

@@ -1,6 +1,7 @@
 """Logging utility instantiator."""
 
 from typing import Any
+import sys
 
 from lightning_utilities.core.rank_zero import rank_zero_only
 from omegaconf import OmegaConf
@@ -17,10 +18,11 @@ def log_hyperparameters(object_dict: dict[str, Any]) -> None:
     Additionally saves:
         - Number of model parameters
 
-    :param object_dict: A dictionary containing the following objects:
-        - `"cfg"`: A DictConfig object containing the main config.
-        - `"model"`: The Lightning model.
-        - `"trainer"`: The Lightning trainer.
+    Args:
+        - object_dict: A dictionary containing the following objects:
+            - `"cfg"`: A DictConfig object containing the main config.
+            - `"model"`: The Lightning model.
+            - `"trainer"`: The Lightning trainer.
     """
     hparams = {}
 
@@ -49,6 +51,7 @@ def log_hyperparameters(object_dict: dict[str, Any]) -> None:
     hparams["tags"] = cfg.get("tags")
     hparams["ckpt_path"] = cfg.get("ckpt_path")
     hparams["seed"] = cfg.get("seed")
+    hparams["execution_command"] = f"python {' '.join(sys.argv)}"
 
     # send hparams to all loggers
     for logger in trainer.loggers:
