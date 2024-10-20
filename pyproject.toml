@@ -22,8 +22,6 @@ dependencies = [
   "torchtyping>=0.1.5",
   "pandas>=2.2.3",
   "torch>=2.5.0",
-  "torchvision>=0.20.0",
-  "torchaudio>=2.5.0",
   "litserve>=0.2.3",
 ]
 
