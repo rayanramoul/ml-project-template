@@ -1180,7 +1180,8 @@ A template for machine learning or deep learning projects.
 </ul>
 <h2 id="tips-and-tricks">🤠Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permanent link">#</a></h2>
 <h3 id="how-does-the-project-work">🐍 How does the project work?<a class="headerlink" href="#how-does-the-project-work" title="Permanent link">#</a></h3>
-<p>The <code>train.py</code> or <code>eval.py</code> script is the entry point of the project. It uses Hydra to instantiate the model (LightningModule), dataloader (DataModule), and trainer using the configuration reconstructed using Hydra. The model is then trained or evaluated using Pytorch Lightning.</p>
+<p>The <code>train.py</code> or <code>eval.py</code> script is the entry point of the project. It uses Hydra to instantiate the model (LightningModule), dataloader (DataModule), and trainer using the configuration reconstructed using Hydra. The model is then trained or evaluated using Pytorch Lightning.
+The  <code>serve.py</code> is used to serve the model through a REST API using LitServe and based on the <code>configs/serve.yaml</code> configuration file.</p>
 <h3 id="implementing-your-logic">👀 Implementing your logic<a class="headerlink" href="#implementing-your-logic" title="Permanent link">#</a></h3>
 <p>You don't need to worry about implementing the training loops, the support for different hardwares, reading of
 configurations, etc. You need to care about 4 files for each training : your LightningModule (+ its hydra config), your
