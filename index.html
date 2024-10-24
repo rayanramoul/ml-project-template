@@ -1202,8 +1202,9 @@ used, and the trainer used:</p>
 <li>Docstring your functions and classes, it is even more important as it is used to generate the documentation with Mkdocs</li>
 <li>Use the <code>make</code> commands to run your code, it is easier and faster than writing the full command (and check the Makefile for all available commands 😉)</li>
 <li><a href="https://pre-commit.com/">Use the pre-commit hooks</a> to ensure your code is formatted correctly and is of good quality</li>
-<li><a href="https://docs.astral.sh/uv/">UV</a> is powerful (multi-thread, package graph solving, rust backend, etc.) use it as much
-as you can.</li>
+<li><a href="https://docs.astral.sh/uv/">UV</a> is powerful (multi-thread, package graph solving, rust backend, etc.) use it as much as you can.</li>
+<li>If you have a lot of data, use Polars for faster and more efficient dataframe processing.</li>
+<li>If you have CPU intensive tasks, use multi-processing with python's pool map, you can find an example in the <code>src/utils/utils.py</code> file.</li>
 </ul>
 <h3 id="documentation">📚 Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h3>
 <p>You have the possibility to generate a documentation website using Mkdocs. It will automatically generate the documentation based on both the markdown files in the <code>docs/</code> folder and the docstrings in your code.
