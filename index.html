@@ -419,17 +419,26 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Documentation
+    </span>
+  </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#tree-explained" class="md-nav__link">
     <span class="md-ellipsis">
       🌳 Tree Explained
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1205,7 +1214,16 @@ used, and the trainer used:</p>
 <li><a href="https://docs.astral.sh/uv/">UV</a> is powerful (multi-thread, package graph solving, rust backend, etc.) use it as much
 as you can.</li>
 </ul>
-<h2 id="tree-explained">🌳 Tree Explained<a class="headerlink" href="#tree-explained" title="Permanent link">#</a></h2>
+<h3 id="documentation">📚 Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h3>
+<p>You have the possibility to generate a documentation website using Mkdocs. It will automatically generate the documentation based on both the markdown files in the <code>docs/</code> folder and the docstrings in your code.
+To generate and serve the documentation locally:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>make<span class="w"> </span>serve-docs<span class="w"> </span><span class="c1"># Documentation will be available at http://localhost:8000</span>
+</code></pre></div></td></tr></table></div>
+<p>And to deploy it to Github pages (youn need to enable Pages in your repository configuration and set it to use the
+gh-pages branch):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>make<span class="w"> </span>pages-deploy<span class="w"> </span><span class="c1"># It will create a gh-pages branch and push the documentation to it</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="tree-explained">🌳 Tree Explained<a class="headerlink" href="#tree-explained" title="Permanent link">#</a></h3>
 <p>```
 .
 ├── commit-template.txt # use this file to set your commit message template, with make configure-commit template
