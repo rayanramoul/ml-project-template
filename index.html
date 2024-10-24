@@ -395,7 +395,7 @@
           <li class="md-nav__item">
   <a href="#implementing-your-logic" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementing your logic
+      👀 Implementing your logic
     </span>
   </a>
   
@@ -1172,7 +1172,7 @@ A template for machine learning or deep learning projects.
 <h2 id="tips-and-tricks">🤠Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permanent link">#</a></h2>
 <h3 id="how-does-the-project-work">🐍 How does the project work?<a class="headerlink" href="#how-does-the-project-work" title="Permanent link">#</a></h3>
 <p>The <code>train.py</code> or <code>eval.py</code> script is the entry point of the project. It uses Hydra to instantiate the model (LightningModule), dataloader (DataModule), and trainer using the configuration reconstructed using Hydra. The model is then trained or evaluated using Pytorch Lightning.</p>
-<h3 id="implementing-your-logic">Implementing your logic<a class="headerlink" href="#implementing-your-logic" title="Permanent link">#</a></h3>
+<h3 id="implementing-your-logic">👀 Implementing your logic<a class="headerlink" href="#implementing-your-logic" title="Permanent link">#</a></h3>
 <p>You don't need to worry about implementing the training loops, the support for different hardwares, reading of
 configurations, etc. You need to care about 4 files for each training : your LightningModule (+ its hydra config), your
 DataModule (+ its hydra config).</p>
@@ -1224,8 +1224,47 @@ gh-pages branch):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>make<span class="w"> </span>pages-deploy<span class="w"> </span><span class="c1"># It will create a gh-pages branch and push the documentation to it</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="tree-explained">🌳 Tree Explained<a class="headerlink" href="#tree-explained" title="Permanent link">#</a></h3>
-<p>```
-.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code>.
 ├── commit-template.txt # use this file to set your commit message template, with make configure-commit template
 ├── configs # configuration files for hydra
 │   ├── callbacks # configuration files for callbacks
@@ -1255,7 +1294,7 @@ gh-pages branch):</p>
 │   │   └── mnist_datamodule.py
 │   ├── eval.py # evaluation entry script
 │   ├── models # models folder (LightningModule)
-│   │   ├── components # components folder, contains model parts or "nets"
+│   │   ├── components # components folder, contains model parts or &quot;nets&quot;
 │   ├── train.py # training entry script
 │   └── utils # utils folder
 │       ├── instantiators.py # instantiators for models and dataloaders
@@ -1265,8 +1304,8 @@ gh-pages branch):</p>
 │       └── utils.py # general utils like multi-processing, etc.
 └── tests # tests folder
     └── conftest.py # fixtures for tests
-    └── mock_test.py # example of mocking tests</p>
-<p>````</p>
+    └── mock_test.py # example of mocking tests
+</code></pre></div></td></tr></table></div>
 <h2 id="contributing">🤝 Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h2>
 <p>For more information on how to contribute to this project, please refer to the <a href="../CONTRIBUTING.md">CONTRIBUTING.md</a> file.</p>
 <h2 id="aknowledgements">🌟 Aknowledgements<a class="headerlink" href="#aknowledgements" title="Permanent link">#</a></h2>
