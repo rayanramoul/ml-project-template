@@ -16,7 +16,7 @@ install: configure_commit_template
 
 # Configure git commit template, this will help to write better commit messages
 configure-commit-template:
-	git config --global commit.template $(realpath commit-template.txt)
+	git config --global commit.template $(realpath assets/commit-template.txt)
 
 # Pre-commit hooks are useful to run some checks (usually linters) before committing the code to the repository
 # It will help to keep the code clean and consistent, this commands sets up the pre-commit hooks
@@ -41,7 +41,7 @@ evaluate:
 
 # Build the Docker image with the base dependencies
 build-docker:
-	docker build --target lightning-base -t lightning-base .
+	docker build --target lightning-base -t lightning-base -f dev.Dockerfile .
 
 # Build the Docker image and jump into the container to test a fresh environment (CPU)
 dev-container-cpu: build-docker

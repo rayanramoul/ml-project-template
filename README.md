@@ -8,8 +8,8 @@
 [![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
 [![lightning](https://img.shields.io/badge/-Lightning_2.0+-792ee5?logo=pytorchlightning&logoColor=white)](https://pytorchlightning.ai/)
 [![hydra](https://img.shields.io/badge/Config-Hydra_1.3-89b8cd)](https://hydra.cc/)
-[![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
-[![isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/) <br>
+[![Linter: Ruff](https://img.shields.io/badge/Linter-Ruff-brightgreen?style=flat-square)](https://github.com/charliermarsh/ruff)
+<br>
 
 Click on [<kbd>Use this template</kbd>](https://github.com/rayanramoul/ml-project-template/generate) to start your own project! or go to the [Documentation](https://rayanramoul.github.io/ml-project-template/) for more information.
 
@@ -201,7 +201,7 @@ If any struggle is encountered, the junior can refer to the provided examples in
 
 For more information on how to contribute to this project, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## 🌟 Aknowledgements
+## 🌟 Acknowledgements
 
 This template was heavily inspired by great existing ones, like:
 

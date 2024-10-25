@@ -192,7 +192,7 @@ If any struggle is encountered, the junior can refer to the provided examples in
 
 For more information on how to contribute to this project, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## 🌟 Aknowledgements
+## 🌟 Acknowledgements
 
 This template was heavily inspired by great existing ones, like:
 
