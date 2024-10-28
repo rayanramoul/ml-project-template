@@ -45,11 +45,11 @@ build-docker:
 
 # Build the Docker image and jump into the container to test a fresh environment (CPU)
 dev-container-cpu: build-docker
-	docker run $(DOCKER_RUN_FLAGS) -v $(PROJECT_ROOT):/app -it lightning-base:latest /bin/bash
+	docker run $(DOCKER_RUN_FLAGS) -v $(PROJECT_ROOT):/app -v /app/.venv -it lightning-base:latest /bin/bash
 
 # Build the Docker image and jump into the container to test a fresh environment (GPU)
 dev-container-gpu: build-docker
-	docker run $(DOCKER_RUN_FLAGS_GPU) -v $(PROJECT_ROOT):/app -it lightning-base:latest /bin/bash
+	docker run $(DOCKER_RUN_FLAGS_GPU) -v $(PROJECT_ROOT):/app -v /app/.venv -it lightning-base:latest /bin/bash
 
 # Run the train script using the Docker image
 train-docker: docker-build
