@@ -10,28 +10,70 @@ dependencies = [
   "hydra-core>=1.3.2",
   "kaggle>=1.6.17",
   "lightning>=2.4.0",
-  "mkdocs>=1.6.1",
-  "mkdocs-material>=9.5.41",
-  "mkdocstrings[python]>=0.26.2",
   "neptune>=1.12.0",
   "polars>=1.9.0",
   "rich>=13.9.2",
   "wandb>=0.18.3",
-  "mkdocs-mermaid2-plugin>=1.1.1",
-  "mkdocs-gen-files>=0.5.0",
-  "torchtyping>=0.1.5",
   "pandas>=2.2.3",
-  "torch>=2.5.0",
   "litserve>=0.2.3",
 ]
 
-[project.optional-dependencies]
-optional = []
+[dependency-groups]
+docs = [
+  "mkdocs-autorefs==1.2.0",
+  "mkdocs-gen-files==0.5.0",
+  "mkdocs-get-deps==0.2.0",
+  "mkdocs-material-extensions==1.3.1",
+  "mkdocs-material==9.5.41",
+  "mkdocs-mermaid2-plugin==1.1.1",
+  "mkdocs==1.6.1",
+  "mkdocstrings-python==1.12.1",
+  "mkdocstrings==0.26.2",
+  "pymdown-extensions==10.11.2",
+]
+lint = ["pre-commit"]
+torch = ["torch>=2.5.0", "torchtyping>=0.1.5"]
+jax = ["jax>=0.2.21", "torchtyping>=0.1.5"]
 
 [tool.mypy]
-disable_error_code = ["name-defined"] # ignore name-defined for torchtyping named shapes
+disable_error_code = [
+  "name-defined",
+] # ignore name-defined for torchtyping named shapes
 
 [tool.uv]
-dev-dependencies = [
-    "pytest>=8.3.3",
+dev-dependencies = ["pytest>=8.3.3"]
+
+prerelease = "allow"
+find-links = [
+  "https://storage.googleapis.com/jax-releases/jax_releases.html",
+  "https://storage.googleapis.com/jax-releases/libtpu_releases.html",
+  "https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",
+  "https://storage.googleapis.com/libtpu-releases/index.html",
 ]
+
+conflicts = [ # so uv will resolve the groups independently
+  [
+    { group = "gpu" },
+    { group = "cpu" },
+    { group = "tpu" },
+    { group = "tpu_torch" },
+  ],
+]
+
+package = true # This makes uv automatically add deepchain_mrna to PYTHONPATH
+
+[[tool.uv.index]]
+name = "pytorch-cuda11"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cuda11", marker = "platform_system != 'Darwin'" }]
+torchvision = [
+  { index = "pytorch-cuda11", marker = "platform_system != 'Darwin'" },
+]
+
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
