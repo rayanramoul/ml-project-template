@@ -12,7 +12,7 @@ init:
 	uv init -p $(PYTHON_VERSION)
 
 install: configure_commit_template
-	uv sync -p $(PYTHON_VERSION) && uv lock
+	uv sync --locked -p $(PYTHON_VERSION) && uv lock
 
 # Configure git commit template, this will help to write better commit messages
 configure-commit-template:
@@ -29,15 +29,15 @@ format:
 
 # Run pytest to test the code unit tests under the 'tests/' directory
 test:
-	uv run pytest
+	uv run --no-sync pytest
 
 # Use uv to run the train script while passing the arguments from the command line
 train:
-	uv run src/train.py ${ARGS}
+	uv run --no-sync src/train.py ${ARGS}
 
 # Use uv to run the evaluate script while passing the arguments from the command line
 evaluate:
-	uv run src/evaluate.py ${ARGS}
+	uv run --no-sync src/evaluate.py ${ARGS}
 
 # Build the Docker image with the base dependencies
 build-docker:
@@ -62,8 +62,8 @@ evaluate-docker: docker-build
 # This build the documentation based on current code 'src/' and 'docs/' directories and deploy it to the gh-pages branch
 # in your GitHub repository (you then need to setup the GitHub Pages to use the gh-pages branch)
 deploy-pages:
-	uv run mkdocs build && uv run mkdocs gh-deploy
+	uv run --no-sync mkdocs build && uv run --no-sync mkdocs gh-deploy
 
 # This is to run the documentation locally to see how it looks
 serve-docs:
-	uv run mkdocs build && uv run mkdocs serve
+	uv run --no-sync mkdocs build && uv run --no-sync mkdocs serve

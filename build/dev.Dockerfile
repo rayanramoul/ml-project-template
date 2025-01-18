@@ -17,7 +17,23 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
+# THis is necessary to keep .venv in the container after build
+ENV UV_PROJECT_ENVIRONMENT=/app/.venv
+
+# Enable bytecode compilation
+ENV UV_COMPILE_BYTECODE=1
+
+# Copy from the cache instead of linking since it's a mounted volume
+ENV UV_LINK_MODE=copy
+
+# Prevent uv from downloading isolated Python builds as Python is already available
+ENV UV_PYTHON_DOWNLOADS=false
+
+# While doing runs in docker, we want to avoid having automatic sync if packages are missing
+ENV UV_NO_SYNC=false
+
 WORKDIR /app
+
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
@@ -35,7 +51,8 @@ RUN adduser \
 COPY . .
 
 # Install dependencies
-RUN uv sync
+RUN --mount=type=cache,target=/root/.cache/uv \
+  uv sync --locked
 
 # Switch to the non-privileged user to run the application.
 USER appuser
