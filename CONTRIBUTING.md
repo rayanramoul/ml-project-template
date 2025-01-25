@@ -14,7 +14,6 @@ uv sync
 
 Pre-commits hooks have been configured for this project using the [pre-commit](https://pre-commit.com/) library:
 
-- [black](https://github.com/psf/black) python formatter for .py files and jupyter notebooks
 - [ruff](https://flake8.pycqa.org/en/latest/) python linter
 - [reorder](https://github.com/asottile/reorder_python_imports) reoder imports
 - [docformat](https://github.com/myint/docformatter) formats documentation
