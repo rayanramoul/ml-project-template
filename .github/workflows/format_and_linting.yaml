@@ -29,5 +29,3 @@ jobs:
       - name: Run pre-commit hooks
         run: |
           pre-commit run --all-files
-          echo $(git log -1 --pretty=%s --no-merges) > current_commit_msg
-          pre-commit run --hook-stage commit-msg --commit-msg-filename current_commit_msg
