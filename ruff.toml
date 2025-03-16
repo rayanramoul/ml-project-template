@@ -26,7 +26,7 @@ select = [
   "C901", # Cognitive complexity
 ]
 ignore = [
-  "B023",   # allow using local variable in for-loops
+  "B023", # allow using local variable in for-loops
 ]
 
 extend-ignore = []
