@@ -103,3 +103,35 @@ strict_equality = true
 explicit_package_bases = true
 follow_imports = "normal"
 ignore_missing_imports = false
+
+
+# Explicitly disable type checking on problematic modules
+[[tool.mypy.overrides]]
+module = [
+  "cloudpathlib.*", # AnyPath is not properly typed
+
+]
+follow_imports = "skip"
+ignore_missing_imports = true
+
+# Explicitly ignore modules that don’t have type stubs
+[[tool.mypy.overrides]]
+module = [
+  "torch_xla.*",
+  "matplotlib.*",
+  "scipy.*",
+  "networkx.*",
+  "seaborn.*",
+  "neptune.*",
+  "google.cloud.*",
+  "sklearn.*",
+  "tensorboard.*",
+  "tensorboardX.*",
+  "torchvision.*",
+  "pydot.*",
+  "joblib.*",
+  "tokenizers.*",
+  "transformers.*",
+  "wandb.*",
+]
+ignore_missing_imports = true
