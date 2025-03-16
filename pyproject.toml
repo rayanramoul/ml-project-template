@@ -41,8 +41,8 @@ lint = [
   "types-requests>=2.31.0.6",
   "types-tqdm>=4.67.0.20241221",
 ]
-cpu = ["torch>=2.5.0", "torchtyping>=0.1.5", "torchvision>=0.10.0"]
-gpu = ["torch>=2.5.0", "torchtyping>=0.1.5", "torchvision>=0.10.0"]
+cpu = ["torch>=2.5.0", "torchtyping>=0.1.5", "torchvision"]
+gpu = ["torch>=2.5.0", "torchtyping>=0.1.5", "torchvision"]
 
 
 [tool.uv]
@@ -77,13 +77,6 @@ torch = [
   { index = "pytorch-cuda11", extra = "gpu" },
 
   { index = "pytorch-cpu", extra = "cpu" },
-]
-
-
-torchvision = [
-  { index = "pytorch-cuda11", extra = "gpu" },
-  { index = "pytorch-cpu", extra = "cpu" },
-
 ]
 
 
