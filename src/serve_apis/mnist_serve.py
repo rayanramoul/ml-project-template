@@ -1,5 +1,7 @@
 """This is an example of a LitServe api for the Mnist LightningModule."""
 
+from typing import cast
+
 import lightning
 import litserve as ls
 import torch
@@ -20,7 +22,7 @@ class MNISTServeAPI(ls.LitAPI):
         self.checkpoint_path = checkpoint_path
         self.model_class = model_class
 
-    def setup(self, device: str):
+    def setup(self, device: str | torch.device) -> None:
         """Setup is called once at startup.
 
         Load the model, set the device, and prepare any other necessary components.
@@ -34,15 +36,15 @@ class MNISTServeAPI(ls.LitAPI):
         # Define transforms that match the training data processing pipeline
         self.transforms = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
 
-    def decode_request(self, request: dict):
+    def decode_request(self, request: dict) -> torch.Tensor:
         """Decode the incoming request and prepare the input for the model."""
         # Convert the request payload into a tensor for model input
         image_data = request["image"]
         # Ensure that the image is a tensor of shape [1, 28, 28] (MNIST image dimensions)
         image_tensor = torch.tensor(image_data).unsqueeze(0)  # Add a batch dimension
-        return self.transforms(image_tensor)  # Apply the necessary transformations
+        return cast(torch.Tensor, self.transforms(image_tensor))  # Apply the necessary transformations
 
-    def predict(self, x: torch.Tensor):
+    def predict(self, x: torch.Tensor) -> dict[str, float | int]:
         """Run inference using the MNIST model and return the prediction."""
         # Forward pass through the model
         with torch.no_grad():
@@ -50,7 +52,7 @@ class MNISTServeAPI(ls.LitAPI):
             preds = torch.argmax(logits, dim=1)  # Get the predicted class
         return {"prediction": preds.item()}  # Return the prediction as a dictionary
 
-    def encode_response(self, output: dict):
+    def encode_response(self, output: dict) -> dict[str, float | int]:
         """Encode the model's output into a response payload."""
         # Simply pass the output as the response
         return {"predicted_class": output["prediction"]}

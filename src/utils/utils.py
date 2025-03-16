@@ -7,7 +7,7 @@ import warnings
 from collections.abc import Callable
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import requests
 from omegaconf import DictConfig
@@ -126,7 +126,7 @@ def get_metric_value(metric_dict: dict[str, Any], metric_name: str | None) -> No
     metric_value = metric_dict[metric_name].item()
     log.info(f"Retrieved metric value! <{metric_name}={metric_value}>")
 
-    return metric_value
+    return float(metric_value)
 
 
 # The following functions are useful to make your different operations multi-process safe
@@ -179,15 +179,15 @@ def file_lock_operation(file_name: str, operation: Callable) -> Any:
         return result
 
 
-def fetch_data(url):
+def fetch_data(url: str) -> dict[str, Any] | None:
     """Fetches data from a URL."""
     response = requests.get(url)
     if response.status_code == 200:
-        return response.json()
+        return cast(dict, response.json())
     return None
 
 
-def process_data(url):
+def process_data(url: str) -> int:
     """Fetches data from a URL and processes it."""
     data = fetch_data(url)
     if data:

@@ -104,8 +104,8 @@ class MNISTDataModule(LightningDataModule):
 
         Do not use it to assign state (self.x = y).
         """
-        MNIST(self.hparams.data_dir, train=True, download=True)
-        MNIST(self.hparams.data_dir, train=False, download=True)
+        MNIST(self.hparams["data_dir"], train=True, download=True)
+        MNIST(self.hparams["data_dir"], train=False, download=True)
 
     def setup(self, stage: str | None = None) -> None:
         """Load data. Set variables: `self.data_train`, `self.data_val`, `self.data_test`.
@@ -120,21 +120,22 @@ class MNISTDataModule(LightningDataModule):
         """
         # Divide batch size by the number of devices.
         if self.trainer is not None:
-            if self.hparams.batch_size % self.trainer.world_size != 0:
+            if self.hparams["batch_size"] % self.trainer.world_size != 0:
                 raise RuntimeError(  # noqa
-                    f"Batch size ({self.hparams.batch_size}) "
+                    f"Batch size ({self.hparams['batch_size']}) "
                     "is not divisible by the number of devices ({self.trainer.world_size})."
                 )
-            self.batch_size_per_device = self.hparams.batch_size // self.trainer.world_size
+            self.batch_size_per_device = self.hparams["batch_size"] // self.trainer.world_size
 
         # load and split datasets only if not loaded already
         if not self.data_train and not self.data_val and not self.data_test:
-            trainset = MNIST(self.hparams.data_dir, train=True, transform=self.transforms)
-            testset = MNIST(self.hparams.data_dir, train=False, transform=self.transforms)
-            dataset = ConcatDataset(datasets=[trainset, testset])
+            assert self.hparams["data_dir"] is not None
+            trainset = MNIST(self.hparams["data_dir"], train=True, transform=self.transforms)
+            testset = MNIST(self.hparams["data_dir"], train=False, transform=self.transforms)
+            dataset: ConcatDataset = ConcatDataset(datasets=[trainset, testset])
             self.data_train, self.data_val, self.data_test = random_split(
                 dataset=dataset,
-                lengths=self.hparams.train_val_test_split,
+                lengths=self.hparams["train_val_test_split"],
                 generator=torch.Generator().manual_seed(42),
             )
 
@@ -144,11 +145,12 @@ class MNISTDataModule(LightningDataModule):
         Returns:
             The train dataloader.
         """
+        assert self.data_train is not None
         return DataLoader(
             dataset=self.data_train,
             batch_size=self.batch_size_per_device,
-            num_workers=self.hparams.num_workers,
-            pin_memory=self.hparams.pin_memory,
+            num_workers=self.hparams["num_workers"],
+            pin_memory=self.hparams["pin_memory"],
             shuffle=True,
         )
 
@@ -158,11 +160,12 @@ class MNISTDataModule(LightningDataModule):
         Returns:
             The validation dataloader.
         """
+        assert self.data_val is not None
         return DataLoader(
             dataset=self.data_val,
             batch_size=self.batch_size_per_device,
-            num_workers=self.hparams.num_workers,
-            pin_memory=self.hparams.pin_memory,
+            num_workers=self.hparams["num_workers"],
+            pin_memory=self.hparams["pin_memory"],
             shuffle=False,
         )
 
@@ -172,11 +175,12 @@ class MNISTDataModule(LightningDataModule):
         Returns:
             The test dataloader.
         """
+        assert self.data_test is not None
         return DataLoader(
             dataset=self.data_test,
             batch_size=self.batch_size_per_device,
-            num_workers=self.hparams.num_workers,
-            pin_memory=self.hparams.pin_memory,
+            num_workers=self.hparams["num_workers"],
+            pin_memory=self.hparams["pin_memory"],
             shuffle=False,
         )
 

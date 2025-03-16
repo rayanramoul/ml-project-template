@@ -16,6 +16,7 @@ dependencies = [
   "wandb>=0.18.3",
   "pandas>=2.2.3",
   "litserve>=0.2.3",
+  "typeguard",
 ]
 
 [project.optional-dependencies]
@@ -134,5 +135,8 @@ module = [
   "tokenizers.*",
   "transformers.*",
   "wandb.*",
+  "litserve.*",
+  "kaggle.*",
+  "torchtyping.*",
 ]
 ignore_missing_imports = true

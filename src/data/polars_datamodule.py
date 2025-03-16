@@ -23,7 +23,7 @@ class PolarsDataset(Dataset):
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
         """Return the features and label for the given index."""
         row = self.df[idx]
-        features = torch.tensor([val for col, val in row.items() if col != self.output_column], dtype=torch.float32)
+        features = torch.tensor([val for col, val in row.item() if col != self.output_column], dtype=torch.float32)
         label = torch.tensor(row[self.output_column], dtype=torch.long)
         return features, label
 
@@ -50,7 +50,7 @@ class PolarsDataModule(LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.test_size = test_size
-        self.df = None  # Will hold the loaded Polars DataFrame
+        self.df: pl.DataFrame
 
     def setup(self, stage: str = "") -> None:
         """Load and split the dataset into train and validation sets."""

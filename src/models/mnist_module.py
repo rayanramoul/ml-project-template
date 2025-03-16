@@ -1,6 +1,6 @@
 """Mnist simple model."""
 
-from typing import Any
+from typing import Any, TypeVar
 
 import torch
 from lightning import LightningModule
@@ -9,7 +9,9 @@ from torchmetrics.classification.accuracy import Accuracy
 from torchtyping import TensorType, patch_typeguard
 from typeguard import typechecked
 
-#
+# Define a dimension name properly
+
+Batch = TypeVar("Batch")
 # Ensure typeguard is patched with torchtyping
 patch_typeguard()
 
@@ -51,7 +53,7 @@ class MNISTLitModule(LightningModule):
         self,
         net: torch.nn.Module,
         optimizer: torch.optim.Optimizer,
-        scheduler: torch.optim.lr_scheduler,
+        scheduler: torch.optim.lr_scheduler._LRScheduler | None,
         compile_model: bool,
     ) -> None:
         """Initialize a `MNISTLitModule`.
@@ -87,7 +89,7 @@ class MNISTLitModule(LightningModule):
         self.val_acc_best = MaxMetric()
 
     @typechecked
-    def forward(self, x: TensorType["batch", 1, 28, 28]) -> TensorType["batch", 10]:  # noqa
+    def forward(self, x: TensorType[Batch, 1, 28, 28]) -> TensorType[Batch, 10]:  # ty
         """Perform a forward pass through the model.
 
         Args:
@@ -107,7 +109,9 @@ class MNISTLitModule(LightningModule):
         self.val_acc_best.reset()
 
     @typechecked
-    def model_step(self, x: TensorType["batch", 1, 28, 28], y: TensorType["batch"]):  # noqa
+    def model_step(
+        self, x: TensorType[Batch, 1, 28, 28], y: TensorType[Batch]
+    ) -> tuple[TensorType[()], TensorType[()], TensorType[()]]:
         """Perform a single model step.
 
         Args:
@@ -126,7 +130,7 @@ class MNISTLitModule(LightningModule):
         return loss, preds, y
 
     @typechecked
-    def training_step(self, batch: Any) -> TensorType[()]:
+    def training_step(self, batch: Any, batch_idx: int) -> TensorType[()]:
         """Perform a single training step.
 
         Args:
@@ -167,7 +171,8 @@ class MNISTLitModule(LightningModule):
 
     def on_validation_epoch_end(self) -> None:
         """Lightning hook that is called when a validation epoch ends."""
-        acc = self.val_acc.compute()  # get current val acc
+        # get current val acc
+        acc = self.val_acc.compute()  # type: ignore
         self.val_acc_best(acc)  # update best so far val acc
         # log `val_acc_best` as a value through `.compute()` method, instead of as a metric object
         # otherwise metric would be reset by lightning after each epoch
@@ -203,10 +208,10 @@ class MNISTLitModule(LightningModule):
         Args:
             stage: Either `"fit"`, `"validate"`, `"test"`, or `"predict"`.
         """
-        if self.hparams.compile_model and stage == "fit":
-            self.net = torch.compile(self.net)
+        if self.hparams["compile_model"] and stage == "fit":
+            self.net = torch.compile(self.net)  # type: ignore
 
-    def configure_optimizers(self) -> dict[str, Any]:
+    def configure_optimizers(self) -> dict[str, Any]:  # type: ignore
         """Choose what optimizers and learning-rate schedulers to use in your optimization.
 
         Normally you'd need one. But in the case of GANs or similar you might have multiple.
@@ -217,9 +222,10 @@ class MNISTLitModule(LightningModule):
         Returns:
             A dict containing the configured optimizers and learning-rate schedulers to be used for training.
         """
-        optimizer = self.hparams.optimizer(params=self.trainer.model.parameters())
-        if self.hparams.scheduler is not None:
-            scheduler = self.hparams.scheduler(optimizer=optimizer)
+        assert self.trainer.model is not None, "Model is not compiled yet."
+        optimizer = self.hparams["optimizer"](params=self.trainer.model.parameters())
+        if self.hparams["scheduler"] is not None:
+            scheduler = self.hparams["scheduler"](optimizer=optimizer)
             return {
                 "optimizer": optimizer,
                 "lr_scheduler": {

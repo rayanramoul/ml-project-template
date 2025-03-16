@@ -20,7 +20,7 @@ from unittest.mock import patch
 from src.utils.utils import process_data
 
 
-def test_process_data_success():
+def test_process_data_success() -> None:
     """Test the process_data function with a successful API call."""
     mock_data = {"key": "value", "key2": "value2"}  # Mock data to return
 
@@ -33,7 +33,7 @@ def test_process_data_success():
         )  # Check that fetch_data was called with the correct URL
 
 
-def test_process_data_failure():
+def test_process_data_failure() -> None:
     """Test the process_data function when the API call fails."""
     with patch("src.utils.utils.fetch_data", return_value=None) as mock_fetch:
         result = process_data("http://example.com/api")

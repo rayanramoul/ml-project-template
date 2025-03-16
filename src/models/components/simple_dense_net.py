@@ -53,7 +53,7 @@ class SimpleDenseNet(nn.Module):
         # (batch, 1, width, height) -> (batch, 1*width*height)
         x = x.view(batch_size, -1)
 
-        return self.model(x)
+        return torch.tensor(self.model(x))
 
 
 if __name__ == "__main__":

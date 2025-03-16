@@ -54,7 +54,7 @@ def print_config_tree(
     # add all the other fields to queue (not specified in `print_order`)
     for field in cfg:
         if field not in queue:
-            queue.append(field)
+            queue.append(str(field))
 
     # generate config tree from queue
     for field in queue:
@@ -86,7 +86,7 @@ def enforce_tags(cfg: DictConfig, save_to_file: bool = False) -> None:
         save_to_file: Whether to export tags to the hydra output folder. Default is ``False``.
     """
     if not cfg.get("tags"):
-        if "id" in HydraConfig().cfg.hydra.job:
+        if "id" in HydraConfig().cfg.hydra.job:  # type: ignore
             raise ValueError("Specify tags before launching a multirun!")  # noqa
 
         log.warning("No tags provided in config. Prompting user to input tags...")

@@ -1627,6 +1627,7 @@ dependencies = [
     { name = "pandas" },
     { name = "polars" },
     { name = "rich" },
+    { name = "typeguard" },
     { name = "wandb" },
 ]
 
@@ -1706,6 +1707,7 @@ requires-dist = [
     { name = "torchtyping", marker = "extra == 'gpu'", specifier = ">=0.1.5" },
     { name = "torchvision", marker = "extra == 'cpu'" },
     { name = "torchvision", marker = "extra == 'gpu'" },
+    { name = "typeguard" },
     { name = "types-pyyaml", marker = "extra == 'lint'", specifier = ">=6.0.12.20241230" },
     { name = "types-regex", marker = "extra == 'lint'", specifier = ">=2024.11.6.20241221" },
     { name = "types-requests", marker = "extra == 'lint'", specifier = ">=2.31.0.6" },
