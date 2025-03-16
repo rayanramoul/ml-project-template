@@ -26,7 +26,7 @@ jobs:
         run: uv python install # Installs Python version via uv
 
       - name: Sync project dependencies
-        run: uv sync --no-dev && uv add pytest
+        run: uv sync --dev
 
       - name: Run tests
         run: export PYTHONPATH="$PYTHONPATH:$PWD" && uv run pytest # Use uv to run pytest on the tests directory

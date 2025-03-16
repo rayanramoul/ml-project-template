@@ -21,3 +21,4 @@ site/**
 logs/**
 *config_tree*
 client.py
+*egg-info**
