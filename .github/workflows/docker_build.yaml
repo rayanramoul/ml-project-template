@@ -1,0 +1,30 @@
+name: Docker Build & Test 🐳
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository 📦
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: build/Dockerfile
+          push: false
+          tags: myapp:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
