@@ -2,9 +2,10 @@ site_name: Machine Learning Project Template Documentation
 site_description: Documentation
 site_author: Rayan Samy Ramoul
 # site_url: #TODO: Fill when deployment CI added
-site_dir: public
+site_dir: ../public
 repo_url: https://github.com/rayanramoul/ml-project-template
 edit_uri: blob/main/docs/
+docs_dir: .
 
 
 theme:
@@ -51,9 +52,9 @@ markdown_extensions:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
       emoji_index: !!python/name:pymdownx.emoji.gemoji
   - pymdownx.snippets:
-      base_path: ./
+      base_path: ../
   - pymdownx.pathconverter:
-      base_path: ./
+      base_path: ../
       relative_path: docs
   - toc:
       permalink: "#"
@@ -79,8 +80,9 @@ plugins:
       load_external_modules: true
       handlers:
         python:
-          paths: [., source]
+          paths: [.., ../src]
   - gen-files:
       scripts:
-        - scripts/gen_doc_stubs.py
+        - ../scripts/gen_doc_stubs.py
   - search
+  - same-dir
