@@ -41,7 +41,7 @@ evaluate:
 
 # Build the Docker image with the base dependencies
 build-docker:
-	docker build --target lightning-base -t lightning-base -f dev.Dockerfile .
+	docker build --target lightning-base -t lightning-base -f build/Dockerfile .
 
 # Build the Docker image and jump into the container to test a fresh environment (CPU)
 dev-container-cpu: build-docker
