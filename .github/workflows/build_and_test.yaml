@@ -23,10 +23,10 @@ jobs:
           cache-dependency-glob: "uv.lock"
 
       - name: Set up Python
-        run: uv python install # Installs Python version via uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
       - name: Sync project dependencies
-        run: uv sync --dev
+        run: uv sync --extra cpu --extra test
 
       - name: Run tests
         run: export PYTHONPATH="$PYTHONPATH:$PWD" && uv run pytest # Use uv to run pytest on the tests directory
