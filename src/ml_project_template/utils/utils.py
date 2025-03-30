@@ -12,7 +12,7 @@ from typing import Any, cast
 import requests
 from omegaconf import DictConfig
 
-from src.utils import pylogger, rich_utils
+from ml_project_template.utils import pylogger, rich_utils
 
 log = pylogger.RankedLogger(__name__, rank_zero_only=True)
 

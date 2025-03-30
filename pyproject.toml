@@ -1,5 +1,5 @@
 [project]
-name = "project-template"
+name = "ml-project-template"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -17,6 +17,7 @@ dependencies = [
   "pandas>=2.2.3",
   "litserve>=0.2.3",
   "typeguard",
+  "hydra-zen>=0.14.0",
 ]
 
 [project.optional-dependencies]
@@ -77,7 +78,10 @@ explicit = true
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cuda11", extra = "gpu" },
-
+  { index = "pytorch-cpu", extra = "cpu" },
+]
+torchvision = [
+  { index = "pytorch-cuda11", extra = "gpu" },
   { index = "pytorch-cpu", extra = "cpu" },
 ]
 
@@ -140,3 +144,7 @@ module = [
   "torchtyping.*",
 ]
 ignore_missing_imports = true
+
+
+[tool.hatch.metadata]
+allow-direct-references = true

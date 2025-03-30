@@ -8,8 +8,11 @@ DOCKER_RUN_FLAGS = --env NEPTUNE_API_TOKEN $(NEPTUNE_API_TOKEN) --env NEPTUNE_PR
 DOCKER_RUN_FLAGS_GPU = $(DOCKER_RUN_FLAGS) --gpus all
 export PROJECT_ROOT = $(shell pwd)
 
-init:
-	uv init -p $(PYTHON_VERSION)
+.PHONY: setup-%
+# Setup while making it possible to pass a backend as an argument
+setup-%:
+	uv sync --extra lint --extra docs --extra $*
+
 
 install: configure_commit_template
 	uv sync --locked -p $(PYTHON_VERSION) && uv lock
@@ -33,11 +36,11 @@ test:
 
 # Use uv to run the train script while passing the arguments from the command line
 train:
-	uv run --no-sync src/train.py ${ARGS}
+	uv run --no-sync src/ml_project_template/train.py ${ARGS}
 
 # Use uv to run the evaluate script while passing the arguments from the command line
 evaluate:
-	uv run --no-sync src/evaluate.py ${ARGS}
+	uv run --no-sync src/ml_project_template/evaluate.py ${ARGS}
 
 # Build the Docker image with the base dependencies
 build-docker:
@@ -53,11 +56,11 @@ dev-container-gpu: build-docker
 
 # Run the train script using the Docker image
 train-docker: docker-build
-	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/train.py ${ARGS}"
+	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/ml_project_template/train.py ${ARGS}"
 
 # Run the evaluate script using the Docker image
 evaluate-docker: docker-build
-	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/evaluate.py ${ARGS}"
+	docker run $(DOCKER_RUN_FLAGS) --user root -v $(PROJECT_ROOT):/app lightning-base:latest /bin/bash -i -c "uv run /app/src/ml_project_template/evaluate.py ${ARGS}"
 
 # This build the documentation based on current code 'src/' and 'docs/' directories and deploy it to the gh-pages branch
 # in your GitHub repository (you then need to setup the GitHub Pages to use the gh-pages branch)

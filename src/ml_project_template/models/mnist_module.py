@@ -6,7 +6,7 @@ import torch
 from lightning import LightningModule
 from torchmetrics import MaxMetric, MeanMetric
 from torchmetrics.classification.accuracy import Accuracy
-from torchtyping import TensorType, patch_typeguard
+from torchtyping import patch_typeguard
 from typeguard import typechecked
 
 # Define a dimension name properly
@@ -89,7 +89,7 @@ class MNISTLitModule(LightningModule):
         self.val_acc_best = MaxMetric()
 
     @typechecked
-    def forward(self, x: TensorType[Batch, 1, 28, 28]) -> TensorType[Batch, 10]:  # ty
+    def forward(self, x: torch.Tensor) -> torch.Tensor:  # ty
         """Perform a forward pass through the model.
 
         Args:
@@ -109,9 +109,7 @@ class MNISTLitModule(LightningModule):
         self.val_acc_best.reset()
 
     @typechecked
-    def model_step(
-        self, x: TensorType[Batch, 1, 28, 28], y: TensorType[Batch]
-    ) -> tuple[TensorType[()], TensorType[()], TensorType[()]]:
+    def model_step(self, x: torch.Tensor, y: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Perform a single model step.
 
         Args:
@@ -130,7 +128,7 @@ class MNISTLitModule(LightningModule):
         return loss, preds, y
 
     @typechecked
-    def training_step(self, batch: Any, batch_idx: int) -> TensorType[()]:
+    def training_step(self, batch: Any, batch_idx: int) -> torch.Tensor:
         """Perform a single training step.
 
         Args:

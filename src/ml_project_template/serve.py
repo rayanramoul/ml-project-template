@@ -5,7 +5,7 @@ import lightning
 import litserve as ls
 from omegaconf import DictConfig
 
-from src.utils import (
+from ml_project_template.utils import (
     RankedLogger,
     task_wrapper,
 )
@@ -37,7 +37,7 @@ def serve(cfg: DictConfig) -> None:
     server.run(port=cfg.serve.port)
 
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="serve.yaml")
+@hydra.main(version_base="1.3", config_path="./configs", config_name="serve.yaml")
 def main(cfg: DictConfig) -> None:
     """Main entry point for serving.
 

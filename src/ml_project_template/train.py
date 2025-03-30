@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 from omegaconf import DictConfig
 
-from src.utils import (
+from ml_project_template.utils import (
     RankedLogger,
     extras,
     get_metric_value,
@@ -98,7 +98,7 @@ def train(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     return metric_dict, object_dict
 
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
+@hydra.main(version_base="1.3", config_path="./configs", config_name="train.yaml")
 def main(cfg: DictConfig) -> float | None:
     """Main entry point for training.
 
