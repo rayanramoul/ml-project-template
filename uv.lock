@@ -1,12 +1,18 @@
 version = 1
+revision = 1
 requires-python = ">=3.12"
 resolution-markers = [
-    "sys_platform == 'linux'",
-    "sys_platform != 'linux'",
+    "sys_platform == 'linux' and extra != 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu'",
+    "sys_platform == 'linux' and extra == 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu'",
+    "sys_platform == 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu'",
+    "sys_platform != 'linux' and extra != 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu'",
+    "sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu'",
+    "sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu'",
+    "sys_platform != 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu'",
 ]
 conflicts = [[
-    { package = "project-template", extra = "gpu" },
     { package = "project-template", extra = "cpu" },
+    { package = "project-template", extra = "gpu" },
 ]]
 
 [options]
@@ -700,9 +706,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "torch", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torch", version = "2.5.1+cu118", source = { registry = "https://download.pytorch.org/whl/cu118" }, marker = "extra == 'extra-16-project-template-gpu'" },
-    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torchmetrics" },
     { name = "tqdm" },
     { name = "typing-extensions" },
@@ -1633,8 +1639,8 @@ dependencies = [
 
 [package.optional-dependencies]
 cpu = [
-    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform != 'linux'" },
-    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'linux'" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torchtyping" },
     { name = "torchvision", version = "0.21.0", source = { registry = "https://pypi.org/simple" } },
 ]
@@ -1714,6 +1720,7 @@ requires-dist = [
     { name = "types-tqdm", marker = "extra == 'lint'", specifier = ">=4.67.0.20241221" },
     { name = "wandb", specifier = ">=0.18.3" },
 ]
+provides-extras = ["test", "docs", "lint", "cpu", "gpu"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.3.3" }]
@@ -1940,9 +1947,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "torch", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torch", version = "2.5.1+cu118", source = { registry = "https://download.pytorch.org/whl/cu118" }, marker = "extra == 'extra-16-project-template-gpu'" },
-    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torchmetrics" },
     { name = "tqdm" },
     { name = "typing-extensions" },
@@ -2146,15 +2153,15 @@ wheels = [
 
 [[package]]
 name = "rich"
-version = "13.9.4"
+version = "14.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "markdown-it-py" },
     { name = "pygments" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz", hash = "sha256:439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098", size = 223149 }
+sdist = { url = "https://files.pythonhosted.org/packages/a1/53/830aa4c3066a8ab0ae9a9955976fb770fe9c6102117c8ec4ab3ea62d89e8/rich-14.0.0.tar.gz", hash = "sha256:82f1bc23a6a21ebca4ae0c45af9bdbc492ed20231dcb63f297d6d1021a9d5725", size = 224078 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/19/71/39c7c0d87f8d4e6c020a393182060eaefeeae6c01dab6a84ec346f2567df/rich-13.9.4-py3-none-any.whl", hash = "sha256:6049d5e6ec054bf2779ab3358186963bac2ea89175919d699e378b99738c2a90", size = 242424 },
+    { url = "https://files.pythonhosted.org/packages/0d/9b/63f4c7ebc259242c89b3acafdb37b41d1185c07ff0011164674e9076b491/rich-14.0.0-py3-none-any.whl", hash = "sha256:1c9491e1951aac09caffd42f448ee3d04e58923ffe14993f6e83068dc395d7e0", size = 243229 },
 ]
 
 [[package]]
@@ -2454,16 +2461,16 @@ name = "torch"
 version = "2.6.0"
 source = { registry = "https://download.pytorch.org/whl/cpu" }
 resolution-markers = [
-    "sys_platform != 'linux'",
+    "sys_platform == 'darwin'",
 ]
 dependencies = [
-    { name = "filelock", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "fsspec", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "jinja2", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "networkx", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "setuptools", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "sympy", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "typing-extensions", marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "filelock", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "fsspec", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "jinja2", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "networkx", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "setuptools", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "sympy", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "typing-extensions", marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torch-2.6.0-cp312-none-macosx_11_0_arm64.whl", hash = "sha256:9a610afe216a85a8b9bc9f8365ed561535c93e804c2a317ef7fabcc5deda0989" },
@@ -2503,15 +2510,16 @@ version = "2.6.0+cpu"
 source = { registry = "https://download.pytorch.org/whl/cpu" }
 resolution-markers = [
     "sys_platform == 'linux'",
+    "sys_platform != 'darwin' and sys_platform != 'linux'",
 ]
 dependencies = [
-    { name = "filelock", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "fsspec", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "jinja2", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "networkx", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "setuptools", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "sympy", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "typing-extensions", marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "filelock", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "fsspec", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "jinja2", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "networkx", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "setuptools", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "sympy", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "typing-extensions", marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp312-cp312-linux_x86_64.whl", hash = "sha256:59e78aa0c690f70734e42670036d6b541930b8eabbaa18d94e090abf14cc4d91" },
@@ -2534,9 +2542,9 @@ dependencies = [
     { name = "packaging" },
     { name = "torch", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torch", version = "2.5.1+cu118", source = { registry = "https://download.pytorch.org/whl/cu118" }, marker = "extra == 'extra-16-project-template-gpu'" },
-    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'linux' and extra != 'extra-16-project-template-cpu' and extra != 'extra-16-project-template-gpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/14/c5/8d916585d4d6eb158105c21b28cd4b0ed296d74e499bf8f104368de16619/torchmetrics-1.6.1.tar.gz", hash = "sha256:a5dc236694b392180949fdd0a0fcf2b57135c8b600e557c725e077eb41e53e64", size = 540022 }
 wheels = [
@@ -2549,8 +2557,8 @@ version = "0.1.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "torch", version = "2.5.1+cu118", source = { registry = "https://download.pytorch.org/whl/cu118" }, marker = "extra == 'extra-16-project-template-gpu'" },
-    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
-    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'linux' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
     { name = "typeguard" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/0c/b2/9099ac2d76ebe538d527ef73844bcfa1296a5c75bd9f2d489e862d47bb42/torchtyping-0.1.5.tar.gz", hash = "sha256:fb51e1792536223e2497b1e106ed0cbe681f7324044599cb718d03be3f2b3851", size = 23067 }
@@ -2584,15 +2592,18 @@ version = "0.21.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "sys_platform == 'linux'",
-    "sys_platform != 'linux'",
+    "sys_platform != 'darwin' and sys_platform != 'linux'",
+    "sys_platform == 'darwin'",
 ]
 dependencies = [
     { name = "numpy" },
     { name = "pillow" },
-    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform != 'linux'" },
-    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'linux'" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-16-project-template-cpu') or (extra == 'extra-16-project-template-cpu' and extra == 'extra-16-project-template-gpu')" },
 ]
 wheels = [
+    { url = "https://files.pythonhosted.org/packages/52/5b/76ca113a853b19c7b1da761f8a72cb6429b3bd0bf932537d8df4657f47c3/torchvision-0.21.0-1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:ffa2a16499508fe6798323e455f312c7c55f2a88901c9a7c0fb1efa86cf7e327", size = 2329878 },
+    { url = "https://files.pythonhosted.org/packages/4e/fe/5e193353706dab96fe73ae100d5a633ff635ce310e0d92f3bc2958d075b1/torchvision-0.21.0-1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:7e9e9afa150e40cd2a8f0701c43cb82a8d724f512896455c0918b987f94b84a4", size = 2280711 },
     { url = "https://files.pythonhosted.org/packages/6e/1b/28f527b22d5e8800184d0bc847f801ae92c7573a8c15979d92b7091c0751/torchvision-0.21.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:97a5814a93c793aaf0179cfc7f916024f4b63218929aee977b645633d074a49f", size = 1784140 },
     { url = "https://files.pythonhosted.org/packages/36/63/0722e153fd27d64d5b0af45b5c8cb0e80b35a68cf0130303bc9a8bb095c7/torchvision-0.21.0-cp312-cp312-manylinux1_x86_64.whl", hash = "sha256:b578bcad8a4083b40d34f689b19ca9f7c63e511758d806510ea03c29ac568f7b", size = 7238673 },
     { url = "https://files.pythonhosted.org/packages/bb/ea/03541ed901cdc30b934f897060d09bbf7a98466a08ad1680320f9ce0cbe0/torchvision-0.21.0-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:5083a5b1fec2351bf5ea9900a741d54086db75baec4b1d21e39451e00977f1b1", size = 14701186 },
