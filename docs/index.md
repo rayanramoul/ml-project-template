@@ -36,7 +36,7 @@ A template for machine learning or deep learning projects.
 
 - [ ] Use this repository as a template
 - [ ] Clone your repository
-- [ ] Run `make install` to install the dependencies
+- [ ] Run `just install` to install the dependencies
 - [ ] Add your model which inherits from `LightningModule` in `src/models`
 - [ ] Add your dataset which inherits from `Datamodule` in `src/data`
 - [ ] Add associated yaml configuration files in `configs/` folder following existing examples
@@ -95,7 +95,7 @@ Read more about Hydra in the [official documentation](https://hydra.cc/docs/intr
 
 - Typing your functions and classes with `TorchTyping` for better type checking (in addition to python's typing module)
 - Docstring your functions and classes, it is even more important as it is used to generate the documentation with Mkdocs
-- Use the `make` commands to run your code, it is easier and faster than writing the full command (and check the Makefile for all available commands 😉)
+- Use the `just` commands to run your code, it is easier and faster than writing the full command (and check the justfile for all available commands 😉)
 - [Use the pre-commit hooks](https://pre-commit.com/) to ensure your code is formatted correctly and is of good quality
 - [UV](https://docs.astral.sh/uv/ ) is powerful (multi-thread, package graph solving, rust backend, etc.) use it as much as you can.
 - If you have a lot of data, use Polars for faster and more efficient dataframe processing.
@@ -107,14 +107,14 @@ You have the possibility to generate a documentation website using Mkdocs. It wi
 To generate and serve the documentation locally:
 
 ```bash
-make serve-docs # Documentation will be available at http://localhost:8000
+just serve-docs # Documentation will be available at http://localhost:8000
 ```
 
 And to deploy it to Github pages (youn need to enable Pages in your repository configuration and set it to use the
 gh-pages branch):
 
 ```bash
-make pages-deploy # It will create a gh-pages branch and push the documentation to it
+just pages-deploy # It will create a gh-pages branch and push the documentation to it
 ```
 
 ### 🎓 Github Templates
@@ -161,7 +161,7 @@ If any struggle is encountered, the junior can refer to the provided examples in
 │   ├── trainer # configuration files for trainers (cpu, gpu, tpu)
 │   └── train.yaml # configuration file for training
 ├── data # data folder (to store potentially downloaded datasets)
-├── Makefile # makefile contains useful commands for the project
+├── justfile # makefile equivalent that contains useful commands for the project
 ├── notebooks # notebooks folder
 ├── pyproject.toml # pyproject.toml file for uv package manager
 ├── README.md # this file
